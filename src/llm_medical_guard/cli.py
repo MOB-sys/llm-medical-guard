@@ -10,7 +10,6 @@ from pathlib import Path
 from llm_medical_guard.guard import MedicalGuard
 from llm_medical_guard.result import Severity
 
-
 # ANSI colors
 _COLORS = {
     Severity.DANGER: "\033[91m",  # red
@@ -31,10 +30,21 @@ def _print_result(result, verbose: bool = False) -> None:
     # Header
     if result.passed:
         icon = _colorize("PASS", Severity.INFO)
-        print(f"\n  {_BOLD}{icon}{_RESET}  Score: {result.score:.0%}  |  All {len(result.checks)} checks passed.\n")
+        print(
+            f"\n  {_BOLD}{icon}{_RESET}"
+            f"  Score: {result.score:.0%}"
+            f"  |  All {len(result.checks)} checks passed.\n"
+        )
     else:
         icon = _colorize("FAIL", result.severity)
-        print(f"\n  {_BOLD}{icon}{_RESET}  Score: {result.score:.0%}  |  Severity: {_colorize(result.severity.value.upper(), result.severity)}\n")
+        sev_str = _colorize(
+            result.severity.value.upper(), result.severity
+        )
+        print(
+            f"\n  {_BOLD}{icon}{_RESET}"
+            f"  Score: {result.score:.0%}"
+            f"  |  Severity: {sev_str}\n"
+        )
 
     # Check details
     for check in result.checks:
@@ -69,18 +79,28 @@ def main(argv: list[str] | None = None) -> int:
     check_parser.add_argument("--checks", nargs="+", help="Enable only specific checks")
     check_parser.add_argument("--strict", action="store_true", help="Exit with code 1 on failure")
     check_parser.add_argument("-v", "--verbose", action="store_true", help="Show suggestions")
-    check_parser.add_argument("--json", action="store_true", dest="json_output", help="Output as JSON")
+    check_parser.add_argument(
+        "--json", action="store_true",
+        dest="json_output", help="Output as JSON",
+    )
 
     # bench command
     bench_parser = subparsers.add_parser("bench", help="Run performance benchmark")
-    bench_parser.add_argument("-n", "--iterations", type=int, default=10000, help="Number of iterations")
+    bench_parser.add_argument(
+        "-n", "--iterations", type=int,
+        default=10000, help="Number of iterations",
+    )
     bench_parser.add_argument("-l", "--locale", default="en", help="Language")
 
     # badge command
     badge_parser = subparsers.add_parser("badge", help="Generate verification badge")
     badge_parser.add_argument("text", nargs="?", help="Text to check")
     badge_parser.add_argument("-f", "--file", help="Read text from file")
-    badge_parser.add_argument("-o", "--output", default="medical-guard-badge.svg", help="Output SVG path")
+    badge_parser.add_argument(
+        "-o", "--output",
+        default="medical-guard-badge.svg",
+        help="Output SVG path",
+    )
     badge_parser.add_argument("-l", "--locale", default="en", help="Language")
 
     args = parser.parse_args(argv)
@@ -106,7 +126,12 @@ def _get_text(args) -> str:
         return Path(args.file).read_text(encoding="utf-8")
     if not sys.stdin.isatty():
         return sys.stdin.read()
-    print("Error: No text provided. Use positional argument, --file, or pipe via stdin.", file=sys.stderr)
+    print(
+        "Error: No text provided."
+        " Use positional argument, --file,"
+        " or pipe via stdin.",
+        file=sys.stderr,
+    )
     sys.exit(1)
 
 
@@ -139,14 +164,31 @@ def _cmd_bench(args) -> int:
 
     samples = [
         "Take 5000 IU of vitamin D daily to cure your cold.",
-        "Omega-3 fatty acids may support heart health. Consult your doctor. Source: NIH.",
-        "This miracle cure has no side effects! Better than your doctor!",
-        "Acetaminophen 500mg every 6 hours as needed. Not a substitute for professional medical advice.",
+        (
+            "Omega-3 fatty acids may support"
+            " heart health. Consult your doctor."
+            " Source: NIH."
+        ),
+        (
+            "This miracle cure has no side effects!"
+            " Better than your doctor!"
+        ),
+        (
+            "Acetaminophen 500mg every 6 hours"
+            " as needed. Not a substitute for"
+            " professional medical advice."
+        ),
         "비타민D는 뼈 건강에 도움이 될 수 있습니다. 의사와 상담하세요. 식약처 DUR 기반.",
     ]
 
-    print(f"\n  Benchmarking llm-medical-guard ({args.locale})")
-    print(f"  {n:,} iterations × {len(samples)} samples = {n * len(samples):,} total checks\n")
+    print(
+        f"\n  Benchmarking llm-medical-guard"
+        f" ({args.locale})"
+    )
+    print(
+        f"  {n:,} iterations x {len(samples)} samples"
+        f" = {n * len(samples):,} total checks\n"
+    )
 
     start = time.perf_counter()
     for _ in range(n):

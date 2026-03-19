@@ -83,7 +83,10 @@ class BannedExpressionsCheck(BaseCheck):
             check_name=self.name,
             status=CheckStatus.FAIL if max_severity >= Severity.WARNING else CheckStatus.WARNING,
             severity=max_severity,
-            message=f"{messages.get('banned_found', 'Banned expression detected')}: {expressions_str}{suffix}",
+            message=(
+                f"{messages.get('banned_found', 'Banned expression detected')}"
+                f": {expressions_str}{suffix}"
+            ),
             details={
                 "found": found,
                 "suggestions": {f["expression"]: f["suggestion"] for f in found if f["suggestion"]},

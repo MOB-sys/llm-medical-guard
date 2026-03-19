@@ -3,14 +3,15 @@
 import os
 import tempfile
 
-from llm_medical_guard import MedicalGuard
 from llm_medical_guard.badge import generate_badge
 
 
 class TestBadge:
     def test_pass_badge(self, guard_en):
         result = guard_en.check(
-            "Vitamin D supports health. Not a substitute for professional medical advice. Source: NIH."
+            "Vitamin D supports health."
+            " Not a substitute for professional"
+            " medical advice. Source: NIH."
         )
         with tempfile.NamedTemporaryFile(suffix=".svg", delete=False) as f:
             path = f.name

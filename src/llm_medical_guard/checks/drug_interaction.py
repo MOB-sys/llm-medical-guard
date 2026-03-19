@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import re
-
 from llm_medical_guard.checks import BaseCheck, CheckRegistry
 from llm_medical_guard.config import GuardConfig
 from llm_medical_guard.result import CheckResult, CheckStatus, Severity
@@ -14,9 +12,16 @@ _KNOWN_INTERACTIONS: list[dict] = [
     # Blood thinners + NSAIDs
     {
         "drug_a": ["warfarin", "coumadin"],
-        "drug_b": ["aspirin", "ibuprofen", "naproxen", "advil", "motrin", "aleve", "nsaid"],
+        "drug_b": [
+            "aspirin", "ibuprofen", "naproxen",
+            "advil", "motrin", "aleve", "nsaid",
+        ],
         "severity": "danger",
-        "description": "Increased risk of serious bleeding. NSAIDs inhibit platelet function and may displace warfarin from protein binding.",
+        "description": (
+            "Increased risk of serious bleeding."
+            " NSAIDs inhibit platelet function and may"
+            " displace warfarin from protein binding."
+        ),
         "source": "FDA Drug Label",
     },
     # ACE inhibitors + Potassium
@@ -29,10 +34,19 @@ _KNOWN_INTERACTIONS: list[dict] = [
     },
     # SSRIs + MAOIs
     {
-        "drug_a": ["fluoxetine", "sertraline", "paroxetine", "citalopram", "escitalopram", "ssri"],
-        "drug_b": ["phenelzine", "tranylcypromine", "isocarboxazid", "selegiline", "maoi"],
+        "drug_a": [
+            "fluoxetine", "sertraline", "paroxetine",
+            "citalopram", "escitalopram", "ssri",
+        ],
+        "drug_b": [
+            "phenelzine", "tranylcypromine",
+            "isocarboxazid", "selegiline", "maoi",
+        ],
         "severity": "danger",
-        "description": "Risk of serotonin syndrome, a potentially life-threatening condition.",
+        "description": (
+            "Risk of serotonin syndrome,"
+            " a potentially life-threatening condition."
+        ),
         "source": "FDA Drug Safety Communication",
     },
     # Statins + Grapefruit
@@ -40,7 +54,11 @@ _KNOWN_INTERACTIONS: list[dict] = [
         "drug_a": ["atorvastatin", "simvastatin", "lovastatin", "statin"],
         "drug_b": ["grapefruit", "grapefruit juice"],
         "severity": "warning",
-        "description": "Grapefruit inhibits CYP3A4 enzyme, increasing statin blood levels and risk of muscle damage (rhabdomyolysis).",
+        "description": (
+            "Grapefruit inhibits CYP3A4 enzyme,"
+            " increasing statin blood levels and risk"
+            " of muscle damage (rhabdomyolysis)."
+        ),
         "source": "FDA Consumer Update",
     },
     # Metformin + Alcohol
@@ -48,7 +66,10 @@ _KNOWN_INTERACTIONS: list[dict] = [
         "drug_a": ["metformin", "glucophage"],
         "drug_b": ["alcohol", "ethanol"],
         "severity": "warning",
-        "description": "Increased risk of lactic acidosis, especially with heavy alcohol use.",
+        "description": (
+            "Increased risk of lactic acidosis,"
+            " especially with heavy alcohol use."
+        ),
         "source": "FDA Drug Label",
     },
     # Blood thinners + Vitamin K
@@ -56,40 +77,80 @@ _KNOWN_INTERACTIONS: list[dict] = [
         "drug_a": ["warfarin", "coumadin"],
         "drug_b": ["vitamin k", "phytonadione"],
         "severity": "warning",
-        "description": "Vitamin K counteracts warfarin's anticoagulant effect, potentially leading to blood clots.",
+        "description": (
+            "Vitamin K counteracts warfarin's"
+            " anticoagulant effect, potentially"
+            " leading to blood clots."
+        ),
         "source": "NIH Office of Dietary Supplements",
     },
     # Blood thinners + Fish oil
     {
-        "drug_a": ["warfarin", "coumadin", "aspirin", "clopidogrel", "plavix"],
-        "drug_b": ["fish oil", "omega-3", "omega 3", "epa", "dha"],
+        "drug_a": [
+            "warfarin", "coumadin", "aspirin",
+            "clopidogrel", "plavix",
+        ],
+        "drug_b": [
+            "fish oil", "omega-3", "omega 3",
+            "epa", "dha",
+        ],
         "severity": "caution",
-        "description": "May increase bleeding risk due to additive antiplatelet effects.",
+        "description": (
+            "May increase bleeding risk due to"
+            " additive antiplatelet effects."
+        ),
         "source": "NIH / Natural Medicines Database",
     },
     # Thyroid medication + Calcium/Iron
     {
-        "drug_a": ["levothyroxine", "synthroid", "thyroid medication"],
-        "drug_b": ["calcium", "iron", "calcium carbonate", "ferrous sulfate"],
+        "drug_a": [
+            "levothyroxine", "synthroid",
+            "thyroid medication",
+        ],
+        "drug_b": [
+            "calcium", "iron",
+            "calcium carbonate", "ferrous sulfate",
+        ],
         "severity": "warning",
-        "description": "Calcium and iron reduce absorption of thyroid medication. Take at least 4 hours apart.",
+        "description": (
+            "Calcium and iron reduce absorption of"
+            " thyroid medication."
+            " Take at least 4 hours apart."
+        ),
         "source": "American Thyroid Association",
     },
     # Antibiotics + Dairy
     {
-        "drug_a": ["tetracycline", "doxycycline", "ciprofloxacin", "levofloxacin"],
+        "drug_a": [
+            "tetracycline", "doxycycline",
+            "ciprofloxacin", "levofloxacin",
+        ],
         "drug_b": ["calcium", "dairy", "milk", "antacid"],
         "severity": "warning",
-        "description": "Calcium-containing products reduce antibiotic absorption significantly.",
+        "description": (
+            "Calcium-containing products reduce"
+            " antibiotic absorption significantly."
+        ),
         "source": "FDA Drug Label",
     },
     # St. John's Wort interactions
     {
-        "drug_a": ["st. john's wort", "st john's wort", "hypericum"],
-        "drug_b": ["birth control", "oral contraceptive", "contraceptive", "ssri", "fluoxetine",
-                    "sertraline", "warfarin", "cyclosporine", "digoxin"],
+        "drug_a": [
+            "st. john's wort",
+            "st john's wort", "hypericum",
+        ],
+        "drug_b": [
+            "birth control", "oral contraceptive",
+            "contraceptive", "ssri", "fluoxetine",
+            "sertraline", "warfarin",
+            "cyclosporine", "digoxin",
+        ],
         "severity": "danger",
-        "description": "St. John's Wort induces CYP450 enzymes, reducing effectiveness of many medications.",
+        "description": (
+            "St. John's Wort induces CYP450 enzymes,"
+            " reducing effectiveness of many"
+            " medications."
+        ),
         "source": "NIH NCCIH",
     },
     # Calcium + Iron (absorption competition)
@@ -97,7 +158,10 @@ _KNOWN_INTERACTIONS: list[dict] = [
         "drug_a": ["calcium", "calcium carbonate", "calcium citrate"],
         "drug_b": ["iron", "ferrous sulfate", "ferrous gluconate"],
         "severity": "caution",
-        "description": "Calcium inhibits iron absorption. Take at different times of day.",
+        "description": (
+            "Calcium inhibits iron absorption."
+            " Take at different times of day."
+        ),
         "source": "NIH Office of Dietary Supplements",
     },
     # Vitamin E + Blood thinners
@@ -105,23 +169,41 @@ _KNOWN_INTERACTIONS: list[dict] = [
         "drug_a": ["vitamin e", "tocopherol"],
         "drug_b": ["warfarin", "aspirin", "clopidogrel", "blood thinner"],
         "severity": "caution",
-        "description": "High-dose Vitamin E may increase bleeding risk with anticoagulants.",
+        "description": (
+            "High-dose Vitamin E may increase"
+            " bleeding risk with anticoagulants."
+        ),
         "source": "NIH Office of Dietary Supplements",
     },
     # Ginkgo + Blood thinners
     {
         "drug_a": ["ginkgo", "ginkgo biloba"],
-        "drug_b": ["warfarin", "aspirin", "ibuprofen", "blood thinner", "anticoagulant"],
+        "drug_b": [
+            "warfarin", "aspirin", "ibuprofen",
+            "blood thinner", "anticoagulant",
+        ],
         "severity": "warning",
-        "description": "Ginkgo has antiplatelet properties and may increase bleeding risk.",
+        "description": (
+            "Ginkgo has antiplatelet properties"
+            " and may increase bleeding risk."
+        ),
         "source": "NCCIH / Natural Medicines Database",
     },
     # Magnesium + Antibiotics
     {
-        "drug_a": ["magnesium", "magnesium oxide", "magnesium citrate"],
-        "drug_b": ["tetracycline", "doxycycline", "ciprofloxacin", "levofloxacin"],
+        "drug_a": [
+            "magnesium", "magnesium oxide",
+            "magnesium citrate",
+        ],
+        "drug_b": [
+            "tetracycline", "doxycycline",
+            "ciprofloxacin", "levofloxacin",
+        ],
         "severity": "warning",
-        "description": "Magnesium reduces absorption of certain antibiotics. Separate by 2-4 hours.",
+        "description": (
+            "Magnesium reduces absorption of certain"
+            " antibiotics. Separate by 2-4 hours."
+        ),
         "source": "FDA Drug Label",
     },
     # Zinc + Copper
@@ -129,7 +211,10 @@ _KNOWN_INTERACTIONS: list[dict] = [
         "drug_a": ["zinc"],
         "drug_b": ["copper"],
         "severity": "caution",
-        "description": "High-dose zinc can cause copper deficiency over time.",
+        "description": (
+            "High-dose zinc can cause copper"
+            " deficiency over time."
+        ),
         "source": "NIH Office of Dietary Supplements",
     },
 ]
@@ -140,7 +225,11 @@ class DrugInteractionCheck(BaseCheck):
     """Detects mentions of known dangerous drug-drug or drug-supplement interactions."""
 
     name = "drug_interaction"
-    description = "Flags text that mentions known dangerous drug/supplement combinations without adequate warnings."
+    description = (
+        "Flags text that mentions known dangerous"
+        " drug/supplement combinations"
+        " without adequate warnings."
+    )
 
     def run(self, text: str, config: GuardConfig) -> CheckResult:
         text_lower = text.lower()
@@ -206,7 +295,11 @@ class DrugInteractionCheck(BaseCheck):
         if all_warned:
             warn_note = " (text includes warnings)"
 
-        status = CheckStatus.FAIL if max_severity >= Severity.WARNING and not all_warned else CheckStatus.WARNING
+        status = (
+            CheckStatus.FAIL
+            if max_severity >= Severity.WARNING and not all_warned
+            else CheckStatus.WARNING
+        )
 
         return CheckResult(
             check_name=self.name,
@@ -215,6 +308,9 @@ class DrugInteractionCheck(BaseCheck):
             message=f"Known interaction detected: {', '.join(pairs)}{suffix}{warn_note}",
             details={
                 "interactions": found_interactions,
-                "recommendation": "Ensure adequate warnings are included when discussing drug interactions.",
+                "recommendation": (
+                    "Ensure adequate warnings are included"
+                    " when discussing drug interactions."
+                ),
             },
         )

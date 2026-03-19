@@ -19,7 +19,11 @@ class TestMedicalGuard:
         assert result.severity == Severity.INFO
 
     def test_dangerous_content_fails(self, guard_en):
-        text = "This miracle cure will instantly cure your cancer with zero risk and no side effects."
+        text = (
+            "This miracle cure will instantly cure"
+            " your cancer with zero risk"
+            " and no side effects."
+        )
         result = guard_en.check(text)
         assert not result.passed
         assert result.severity == Severity.DANGER

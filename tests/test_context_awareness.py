@@ -1,6 +1,5 @@
 """Tests for context awareness check."""
 
-from llm_medical_guard import Severity
 
 
 class TestContextAwareness:

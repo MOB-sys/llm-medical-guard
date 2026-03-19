@@ -5,7 +5,12 @@ from llm_medical_guard.cli import main
 
 class TestCLI:
     def test_check_safe(self):
-        code = main(["check", "Vitamin D is good. Not a substitute for professional medical advice. Source: NIH."])
+        code = main([
+            "check",
+            "Vitamin D is good."
+            " Not a substitute for professional"
+            " medical advice. Source: NIH.",
+        ])
         assert code == 0
 
     def test_check_dangerous(self):
@@ -19,7 +24,11 @@ class TestCLI:
         assert '"checks"' in captured.out
 
     def test_check_locale(self):
-        code = main(["check", "-l", "ko", "의사·약사의 전문적 판단을 대체하지 않습니다. 식약처 DUR 기반."])
+        code = main([
+            "check", "-l", "ko",
+            "의사·약사의 전문적 판단을 대체하지 않습니다."
+            " 식약처 DUR 기반.",
+        ])
         assert code == 0
 
     def test_check_verbose(self, capsys):

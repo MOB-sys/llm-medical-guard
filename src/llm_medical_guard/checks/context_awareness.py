@@ -63,7 +63,10 @@ class ContextAwarenessCheck(BaseCheck):
     """Analyzes the overall tone and context of medical content."""
 
     name = "context_awareness"
-    description = "Distinguishes educational medical content from fear-mongering or promotional content."
+    description = (
+        "Distinguishes educational medical content"
+        " from fear-mongering or promotional content."
+    )
 
     def run(self, text: str, config: GuardConfig) -> CheckResult:
         text_lower = text.lower()
@@ -71,7 +74,11 @@ class ContextAwarenessCheck(BaseCheck):
         edu_score = 0
         fear_score = 0
         promo_score = 0
-        details: dict = {"educational_signals": [], "fearmongering_signals": [], "promotional_signals": []}
+        details: dict = {
+            "educational_signals": [],
+            "fearmongering_signals": [],
+            "promotional_signals": [],
+        }
 
         for pattern in _EDUCATIONAL_PATTERNS:
             matches = re.findall(pattern, text_lower)
@@ -99,7 +106,14 @@ class ContextAwarenessCheck(BaseCheck):
                 status=CheckStatus.PASS,
                 severity=Severity.INFO,
                 message="Content tone is neutral.",
-                details={"tone": "neutral", "scores": {"educational": 0, "fearmongering": 0, "promotional": 0}},
+                details={
+                    "tone": "neutral",
+                    "scores": {
+                        "educational": 0,
+                        "fearmongering": 0,
+                        "promotional": 0,
+                    },
+                },
             )
 
         details["scores"] = {

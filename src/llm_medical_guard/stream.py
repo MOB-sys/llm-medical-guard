@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Iterator
+from collections.abc import Iterable, Iterator
 
 from llm_medical_guard.guard import MedicalGuard
 from llm_medical_guard.result import GuardResult

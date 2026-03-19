@@ -57,6 +57,9 @@ class SourceAttributionCheck(BaseCheck):
             message=messages.get("source_missing", "No authoritative source cited."),
             details={
                 "expected_sources": valid_sources[:5],
-                "hint": "Cite an authoritative source such as FDA, NIH, or peer-reviewed studies.",
+                "hint": (
+                    "Cite an authoritative source such as"
+                    " FDA, NIH, or peer-reviewed studies."
+                ),
             },
         )

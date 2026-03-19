@@ -63,7 +63,11 @@ class DosageCheck(BaseCheck):
                                 "unit": unit,
                                 "max_daily": max_daily,
                                 "severity": "danger",
-                                "message": f"{name}: {amount}{unit} far exceeds max recommended {max_daily}{unit}/day",
+                                "message": (
+                                    f"{name}: {amount}{unit}"
+                                    f" far exceeds max recommended"
+                                    f" {max_daily}{unit}/day"
+                                ),
                             })
                         elif amount > max_daily:
                             issues.append({
@@ -72,7 +76,11 @@ class DosageCheck(BaseCheck):
                                 "unit": unit,
                                 "max_daily": max_daily,
                                 "severity": "warning",
-                                "message": f"{name}: {amount}{unit} exceeds max recommended {max_daily}{unit}/day",
+                                "message": (
+                                    f"{name}: {amount}{unit}"
+                                    f" exceeds max recommended"
+                                    f" {max_daily}{unit}/day"
+                                ),
                             })
                         break
 
@@ -97,6 +105,9 @@ class DosageCheck(BaseCheck):
             check_name=self.name,
             status=CheckStatus.FAIL if max_severity >= Severity.WARNING else CheckStatus.WARNING,
             severity=max_severity,
-            message=f"{messages.get('dosage_exceeded', 'Dosage issue')}: {'; '.join(msg_parts)}{suffix}",
+            message=(
+                f"{messages.get('dosage_exceeded', 'Dosage issue')}"
+                f": {'; '.join(msg_parts)}{suffix}"
+            ),
             details={"issues": issues},
         )

@@ -5,8 +5,8 @@ from __future__ import annotations
 from typing import Any
 
 try:
-    from langchain_core.output_parsers import BaseOutputParser
     from langchain_core.exceptions import OutputParserException
+    from langchain_core.output_parsers import BaseOutputParser
 except ImportError as e:
     raise ImportError(
         "LangChain integration requires langchain-core. "

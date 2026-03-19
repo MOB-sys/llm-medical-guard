@@ -51,6 +51,10 @@ class DisclaimerCheck(BaseCheck):
             message=messages.get("disclaimer_missing", "Required medical disclaimer not found."),
             details={
                 "expected_patterns": all_patterns[:3],
-                "hint": "Add a disclaimer such as: 'This is not a substitute for professional medical advice.'",
+                "hint": (
+                    "Add a disclaimer such as:"
+                    " 'This is not a substitute for"
+                    " professional medical advice.'"
+                ),
             },
         )

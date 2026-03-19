@@ -4,19 +4,18 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from llm_medical_guard.checks import CheckRegistry
-from llm_medical_guard.config import GuardConfig
-from llm_medical_guard.result import CheckStatus, GuardResult, Severity
-
 # Import checks to trigger registration
 import llm_medical_guard.checks.banned_expressions  # noqa: F401
 import llm_medical_guard.checks.brand_mention  # noqa: F401
 import llm_medical_guard.checks.claim_severity  # noqa: F401
+import llm_medical_guard.checks.context_awareness  # noqa: F401
 import llm_medical_guard.checks.disclaimer  # noqa: F401
 import llm_medical_guard.checks.dosage  # noqa: F401
-import llm_medical_guard.checks.source_attribution  # noqa: F401
 import llm_medical_guard.checks.drug_interaction  # noqa: F401
-import llm_medical_guard.checks.context_awareness  # noqa: F401
+import llm_medical_guard.checks.source_attribution  # noqa: F401
+from llm_medical_guard.checks import CheckRegistry
+from llm_medical_guard.config import GuardConfig
+from llm_medical_guard.result import CheckStatus, GuardResult, Severity
 
 
 class MedicalGuard:
@@ -47,7 +46,10 @@ class MedicalGuard:
         self._config.locale = locale
         self._config.strict = strict
         if checks:
-            self._config.checks_enabled = {name: (name in checks) for name in CheckRegistry.get_all()}
+            self._config.checks_enabled = {
+                name: (name in checks)
+                for name in CheckRegistry.get_all()
+            }
 
     @property
     def config(self) -> GuardConfig:

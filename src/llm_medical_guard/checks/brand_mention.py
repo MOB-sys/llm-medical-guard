@@ -50,7 +50,11 @@ class BrandMentionCheck(BaseCheck):
             check_name=self.name,
             status=CheckStatus.WARNING,
             severity=Severity.CAUTION,
-            message=f"{messages.get('brand_found', 'Brand names detected')}: {brands_str}{suffix}. Consider using generic/ingredient names.",
+            message=(
+                f"{messages.get('brand_found', 'Brand names detected')}"
+                f": {brands_str}{suffix}."
+                " Consider using generic/ingredient names."
+            ),
             details={
                 "found_brands": found,
                 "hint": "Use generic names (e.g., 'acetaminophen' instead of 'Tylenol').",

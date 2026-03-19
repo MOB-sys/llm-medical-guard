@@ -1,6 +1,6 @@
 """Tests for drug interaction check."""
 
-from llm_medical_guard import MedicalGuard, Severity
+from llm_medical_guard import Severity
 
 
 class TestDrugInteraction:
@@ -12,7 +12,11 @@ class TestDrugInteraction:
         assert di.severity >= Severity.WARNING
 
     def test_warfarin_aspirin_with_warning(self, guard_en):
-        text = "Taking warfarin and aspirin together increases the risk of bleeding. Consult your doctor."
+        text = (
+            "Taking warfarin and aspirin together"
+            " increases the risk of bleeding."
+            " Consult your doctor."
+        )
         result = guard_en.check(text)
         di = next(c for c in result.checks if c.check_name == "drug_interaction")
         # Should still flag but with reduced severity since warning is present

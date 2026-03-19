@@ -60,6 +60,9 @@ class ClaimSeverityCheck(BaseCheck):
             check_name=self.name,
             status=CheckStatus.FAIL if max_severity >= Severity.WARNING else CheckStatus.WARNING,
             severity=max_severity,
-            message=f"{messages.get('claim_found', 'Medical claim detected')}: {claims_str}{suffix}",
+            message=(
+                f"{messages.get('claim_found', 'Medical claim detected')}"
+                f": {claims_str}{suffix}"
+            ),
             details={"found_claims": found},
         )

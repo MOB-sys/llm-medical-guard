@@ -8,7 +8,6 @@ from llm_medical_guard.result import (
     MedicalGuardError,
     Severity,
 )
-
 from llm_medical_guard.stream import StreamGuard, check_stream
 
 __version__ = "0.2.0"

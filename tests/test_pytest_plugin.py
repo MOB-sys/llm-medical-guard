@@ -1,6 +1,5 @@
 """Tests for pytest plugin."""
 
-import pytest
 
 from llm_medical_guard import MedicalGuard
 

@@ -1,6 +1,5 @@
 """Tests for source attribution check."""
 
-from llm_medical_guard import Severity
 
 
 class TestSourceAttribution:
