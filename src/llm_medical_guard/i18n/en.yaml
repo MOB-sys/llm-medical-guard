@@ -1,0 +1,234 @@
+# English medical content guardrail rules
+locale: en
+
+banned_expressions:
+  # Category: Cure/treatment claims
+  - pattern: "cure[sd]?\\b"
+    category: cure_claim
+    severity: danger
+    suggestion: "may help manage symptoms"
+  - pattern: "(?:completely|fully|totally) heal"
+    category: cure_claim
+    severity: danger
+    suggestion: "may support recovery"
+  - pattern: "miracle (?:cure|drug|remedy|treatment)"
+    category: cure_claim
+    severity: danger
+    suggestion: "evidence-based treatment option"
+  - pattern: "instant(?:ly)? (?:cure|heal|fix)"
+    category: cure_claim
+    severity: danger
+    suggestion: "may gradually help improve"
+  - pattern: "guaranteed to (?:work|cure|heal)"
+    category: cure_claim
+    severity: danger
+    suggestion: "has shown positive results in studies"
+  - pattern: "eliminates? (?:the )?(?:disease|illness|condition)"
+    category: cure_claim
+    severity: danger
+    suggestion: "may help manage the condition"
+
+  # Category: Absolute safety claims
+  - pattern: "100% safe"
+    category: absolute_claim
+    severity: danger
+    suggestion: "generally well-tolerated"
+  - pattern: "completely safe"
+    category: absolute_claim
+    severity: danger
+    suggestion: "generally considered safe when used as directed"
+  - pattern: "no side effects"
+    category: absolute_claim
+    severity: danger
+    suggestion: "side effects are uncommon but possible"
+  - pattern: "zero risk"
+    category: absolute_claim
+    severity: danger
+    suggestion: "low risk when used as directed"
+  - pattern: "perfectly safe"
+    category: absolute_claim
+    severity: danger
+    suggestion: "generally well-tolerated at recommended doses"
+
+  # Category: Fear-mongering / exaggeration
+  - pattern: "(?:you |it )?(?:will|could|might) (?:die|kill)"
+    category: fear_mongering
+    severity: danger
+    suggestion: "may pose serious health risks"
+  - pattern: "instant death"
+    category: fear_mongering
+    severity: danger
+    suggestion: "potentially life-threatening in severe cases"
+  - pattern: "fatal(?:ly)? dangerous"
+    category: fear_mongering
+    severity: warning
+    suggestion: "potentially harmful"
+  - pattern: "deadly combination"
+    category: fear_mongering
+    severity: warning
+    suggestion: "potentially dangerous combination"
+  - pattern: "heart attack"
+    category: fear_mongering
+    severity: caution
+    suggestion: "increased cardiovascular risk"
+
+  # Category: Anti-professional
+  - pattern: "(?:better|more accurate|smarter) than (?:your |a )?(?:doctor|physician|pharmacist)"
+    category: anti_professional
+    severity: danger
+    suggestion: "can complement professional medical advice"
+  - pattern: "(?:don'?t|no) need (?:to see |for )(?:a |your )?(?:doctor|physician|pharmacist)"
+    category: anti_professional
+    severity: danger
+    suggestion: "consult your healthcare provider"
+  - pattern: "replace(?:s|ment for)? (?:your |a )?(?:doctor|physician|pharmacist)"
+    category: anti_professional
+    severity: danger
+    suggestion: "a supplement to professional medical care"
+  - pattern: "doctors? (?:don'?t want|hate|won'?t tell)"
+    category: anti_professional
+    severity: danger
+    suggestion: "an area of ongoing medical research"
+
+  # Category: Unverified prevention claims
+  - pattern: "prevents? cancer"
+    category: prevention_claim
+    severity: danger
+    suggestion: "some studies suggest a possible protective effect"
+  - pattern: "prevents? (?:heart (?:disease|attack)|stroke|diabetes|alzheimer)"
+    category: prevention_claim
+    severity: warning
+    suggestion: "may help support cardiovascular/metabolic health"
+  - pattern: "anti-aging"
+    category: prevention_claim
+    severity: caution
+    suggestion: "may support healthy aging"
+
+  # Category: Fake testimonial patterns
+  - pattern: "I (?:was )?cured"
+    category: fake_testimonial
+    severity: warning
+    suggestion: "individual results may vary"
+  - pattern: "(?:it |this )(?:changed|saved) my life"
+    category: fake_testimonial
+    severity: caution
+    suggestion: "some users report positive experiences"
+  - pattern: "everyone should (?:take|use|try) this"
+    category: fake_testimonial
+    severity: warning
+    suggestion: "may be worth discussing with your healthcare provider"
+
+  # Category: Direct recommendation
+  - pattern: "(?:you )?(?:must|should|need to) (?:take|use|try) (?:this|it)"
+    category: direct_recommendation
+    severity: warning
+    suggestion: "you may want to discuss this option with your doctor"
+  - pattern: "(?:take|use) this (?:instead|now|immediately|right away)"
+    category: direct_recommendation
+    severity: warning
+    suggestion: "consult your healthcare provider about this option"
+
+claim_patterns:
+  - pattern: "(?:treat|cure|heal|fix|reverse)s? (?:your )?\\w+"
+    severity: warning
+  - pattern: "proven to (?:work|cure|treat|prevent)"
+    severity: warning
+  - pattern: "clinically proven"
+    severity: caution
+  - pattern: "scientifically proven"
+    severity: caution
+  - pattern: "FDA[- ]approved"
+    severity: caution
+
+disclaimer_patterns:
+  - "not a substitute for professional medical advice"
+  - "not intended to diagnose, treat, cure, or prevent"
+  - "consult your (?:doctor|physician|healthcare provider)"
+  - "does not replace (?:professional )?medical (?:advice|judgment)"
+  - "for informational purposes only"
+
+valid_sources:
+  - "FDA"
+  - "NIH"
+  - "WHO"
+  - "CDC"
+  - "PubMed"
+  - "Mayo Clinic"
+  - "WebMD"
+  - "MedlinePlus"
+  - "DrugBank"
+  - "DailyMed"
+  - "UpToDate"
+  - "Cochrane"
+  - "peer-reviewed"
+
+dosage:
+  units:
+    - "mg"
+    - "mcg"
+    - "µg"
+    - "g"
+    - "ml"
+    - "mL"
+    - "IU"
+    - "iu"
+    - "units?"
+  known_limits:
+    vitamin_d:
+      names: ["vitamin d", "vitamin d3", "cholecalciferol"]
+      max_daily: 4000
+      unit: "IU"
+      warning_threshold: 10000
+    vitamin_c:
+      names: ["vitamin c", "ascorbic acid"]
+      max_daily: 2000
+      unit: "mg"
+      warning_threshold: 5000
+    iron:
+      names: ["iron", "ferrous sulfate", "ferrous gluconate"]
+      max_daily: 45
+      unit: "mg"
+      warning_threshold: 100
+    calcium:
+      names: ["calcium", "calcium carbonate", "calcium citrate"]
+      max_daily: 2500
+      unit: "mg"
+      warning_threshold: 4000
+    zinc:
+      names: ["zinc"]
+      max_daily: 40
+      unit: "mg"
+      warning_threshold: 100
+    omega_3:
+      names: ["omega-3", "fish oil", "EPA", "DHA"]
+      max_daily: 3000
+      unit: "mg"
+      warning_threshold: 5000
+    magnesium:
+      names: ["magnesium"]
+      max_daily: 400
+      unit: "mg"
+      warning_threshold: 800
+    vitamin_a:
+      names: ["vitamin a", "retinol"]
+      max_daily: 3000
+      unit: "mcg"
+      warning_threshold: 10000
+    vitamin_b6:
+      names: ["vitamin b6", "pyridoxine"]
+      max_daily: 100
+      unit: "mg"
+      warning_threshold: 200
+    melatonin:
+      names: ["melatonin"]
+      max_daily: 5
+      unit: "mg"
+      warning_threshold: 20
+
+messages:
+  banned_found: "Prohibited expression detected"
+  claim_found: "Unsubstantiated medical claim detected"
+  disclaimer_missing: "Required medical disclaimer not found"
+  source_missing: "No authoritative source cited"
+  dosage_exceeded: "Dosage exceeds recommended limit"
+  brand_found: "Brand name mention detected"

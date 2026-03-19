@@ -1,0 +1,209 @@
+# 한국어 의료 콘텐츠 가드레일 규칙
+locale: ko
+
+banned_expressions:
+  # 카테고리: 즉사/사망 표현
+  - pattern: "즉사"
+    category: fear_mongering
+    severity: danger
+    suggestion: "심각한 건강 위험이 있을 수 있습니다"
+  - pattern: "즉시 사망"
+    category: fear_mongering
+    severity: danger
+    suggestion: "심각한 부작용이 발생할 수 있습니다"
+  - pattern: "죽을 수"
+    category: fear_mongering
+    severity: danger
+    suggestion: "심각한 건강 위험이 있을 수 있습니다"
+  - pattern: "사망할 수"
+    category: fear_mongering
+    severity: danger
+    suggestion: "생명에 위험한 부작용이 보고된 바 있습니다"
+  - pattern: "심장마비"
+    category: fear_mongering
+    severity: warning
+    suggestion: "심장 부정맥 위험이 증가할 수 있습니다"
+  - pattern: "뇌졸중으로 쓰러"
+    category: fear_mongering
+    severity: warning
+    suggestion: "뇌혈관 관련 부작용 주의가 필요합니다"
+
+  # 카테고리: 질병 치료/예방 효능
+  - pattern: "암 예방"
+    category: cure_claim
+    severity: danger
+    suggestion: "일부 연구에서 보호 효과가 보고되었습니다"
+  - pattern: "암을 치료"
+    category: cure_claim
+    severity: danger
+    suggestion: "전문의와 상담이 필요합니다"
+  - pattern: "암이 낫"
+    category: cure_claim
+    severity: danger
+    suggestion: "전문적인 치료가 필요합니다"
+  - pattern: "완벽하게 치료"
+    category: cure_claim
+    severity: danger
+    suggestion: "증상 관리에 도움이 될 수 있습니다"
+  - pattern: "완치"
+    category: cure_claim
+    severity: danger
+    suggestion: "증상 개선에 도움이 될 수 있습니다"
+  - pattern: "치료할 수"
+    category: cure_claim
+    severity: warning
+    suggestion: "증상 관리에 도움이 될 수 있습니다"
+  - pattern: "치료됩니다"
+    category: cure_claim
+    severity: warning
+    suggestion: "개선에 도움이 될 수 있습니다"
+  - pattern: "낫습니다"
+    category: cure_claim
+    severity: warning
+    suggestion: "회복에 도움이 될 수 있습니다"
+  - pattern: "예방할 수"
+    category: prevention_claim
+    severity: warning
+    suggestion: "예방에 도움이 될 수 있다는 연구가 있습니다"
+  - pattern: "예방됩니다"
+    category: prevention_claim
+    severity: warning
+    suggestion: "예방에 관한 연구가 진행 중입니다"
+
+  # 카테고리: 절대적 안전 주장
+  - pattern: "100% 안전"
+    category: absolute_claim
+    severity: danger
+    suggestion: "일반적으로 안전한 것으로 알려져 있습니다"
+  - pattern: "부작용 없"
+    category: absolute_claim
+    severity: danger
+    suggestion: "부작용이 드물지만 가능합니다"
+
+  # 카테고리: 전문가 폄하
+  - pattern: "약사보다"
+    category: anti_professional
+    severity: danger
+    suggestion: "약사 상담 전 미리 확인해보세요"
+  - pattern: "의사보다"
+    category: anti_professional
+    severity: danger
+    suggestion: "의사 상담 전 참고하세요"
+  - pattern: "병원 갈 필요 없"
+    category: anti_professional
+    severity: danger
+    suggestion: "병원 방문 전에 확인해보세요"
+
+  # 카테고리: 기적/만병통치
+  - pattern: "기적의"
+    category: cure_claim
+    severity: danger
+    suggestion: "효과가 기대되는"
+  - pattern: "만병통치"
+    category: cure_claim
+    severity: danger
+    suggestion: "다양한 건강 이점이 연구되고 있는"
+  - pattern: "즉각적인 효과"
+    category: absolute_claim
+    severity: warning
+    suggestion: "빠른 효과가 기대됩니다"
+  - pattern: "놀라운 효과"
+    category: absolute_claim
+    severity: warning
+    suggestion: "긍정적인 효과가 보고되었습니다"
+
+  # 카테고리: 직접 추천
+  - pattern: "이것만 먹으면"
+    category: direct_recommendation
+    severity: warning
+    suggestion: "이 성분에 대해 전문가와 상담하세요"
+  - pattern: "이거 하나면"
+    category: direct_recommendation
+    severity: warning
+    suggestion: "전문가 상담을 통해 확인하세요"
+  - pattern: "꼭 드세요"
+    category: direct_recommendation
+    severity: warning
+    suggestion: "전문가와 상의 후 복용을 고려하세요"
+  - pattern: "꼭 먹으세요"
+    category: direct_recommendation
+    severity: warning
+    suggestion: "전문가와 상의 후 복용을 고려하세요"
+
+claim_patterns:
+  - pattern: "치료 효과가 있습니다"
+    severity: warning
+  - pattern: "예방 효과가 있습니다"
+    severity: warning
+  - pattern: "건강해집니다"
+    severity: caution
+  - pattern: "좋아집니다"
+    severity: caution
+
+disclaimer_patterns:
+  - "의사[·‧]?약사의 전문적 판단을 대체하지 않습니다"
+  - "전문적 판단을 대체하지 않습니다"
+  - "정보 제공 목적"
+  - "의료 전문가와 상담"
+  - "의사와 상담"
+  - "약사와 상담"
+
+valid_sources:
+  - "식약처"
+  - "DUR"
+  - "e약은요"
+  - "건강보험심사평가원"
+  - "대한약사회"
+  - "대한의사협회"
+  - "질병관리청"
+  - "국립보건연구원"
+  - "약학정보원"
+  - "KFDA"
+  - "식품의약품안전처"
+
+dosage:
+  units:
+    - "mg"
+    - "mcg"
+    - "µg"
+    - "g"
+    - "ml"
+    - "mL"
+    - "IU"
+    - "정"
+    - "캡슐"
+    - "포"
+  known_limits:
+    vitamin_d:
+      names: ["비타민D", "비타민 D", "비타민D3", "콜레칼시페롤"]
+      max_daily: 4000
+      unit: "IU"
+      warning_threshold: 10000
+    vitamin_c:
+      names: ["비타민C", "비타민 C", "아스코르브산"]
+      max_daily: 2000
+      unit: "mg"
+      warning_threshold: 5000
+    iron:
+      names: ["철분", "황산제일철"]
+      max_daily: 45
+      unit: "mg"
+      warning_threshold: 100
+    calcium:
+      names: ["칼슘", "탄산칼슘", "구연산칼슘"]
+      max_daily: 2500
+      unit: "mg"
+      warning_threshold: 4000
+    zinc:
+      names: ["아연"]
+      max_daily: 40
+      unit: "mg"
+      warning_threshold: 100
+
+messages:
+  banned_found: "금지 표현이 감지되었습니다"
+  claim_found: "근거 없는 의학적 주장이 감지되었습니다"
+  disclaimer_missing: "필수 의료 면책조항이 없습니다"
+  source_missing: "공인된 출처가 인용되지 않았습니다"
+  dosage_exceeded: "권장 용량을 초과합니다"
+  brand_found: "브랜드명이 감지되었습니다"

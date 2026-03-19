@@ -1,0 +1,97 @@
+# 日本語 医療コンテンツガードレールルール
+locale: ja
+
+banned_expressions:
+  # カテゴリ: 治療・治癒の主張
+  - pattern: "完治"
+    category: cure_claim
+    severity: danger
+    suggestion: "症状の改善に役立つ可能性があります"
+  - pattern: "治ります"
+    category: cure_claim
+    severity: danger
+    suggestion: "症状の管理に役立つ可能性があります"
+  - pattern: "治る"
+    category: cure_claim
+    severity: warning
+    suggestion: "改善に寄与する可能性があります"
+  - pattern: "万能薬"
+    category: cure_claim
+    severity: danger
+    suggestion: "様々な健康効果が研究されています"
+  - pattern: "奇跡の"
+    category: cure_claim
+    severity: danger
+    suggestion: "効果が期待される"
+  - pattern: "がんを?予防"
+    category: prevention_claim
+    severity: danger
+    suggestion: "一部の研究で保護効果が報告されています"
+  - pattern: "がんを?治"
+    category: cure_claim
+    severity: danger
+    suggestion: "専門医との相談が必要です"
+
+  # カテゴリ: 絶対的安全性の主張
+  - pattern: "100%安全"
+    category: absolute_claim
+    severity: danger
+    suggestion: "一般的に安全とされています"
+  - pattern: "副作用な[いし]"
+    category: absolute_claim
+    severity: danger
+    suggestion: "副作用はまれですが可能性があります"
+  - pattern: "完全に安全"
+    category: absolute_claim
+    severity: danger
+    suggestion: "用法用量を守れば一般的に安全です"
+
+  # カテゴリ: 恐怖を煽る表現
+  - pattern: "即死"
+    category: fear_mongering
+    severity: danger
+    suggestion: "深刻な健康リスクがある可能性があります"
+  - pattern: "死ぬ"
+    category: fear_mongering
+    severity: danger
+    suggestion: "重大な副作用のリスクがあります"
+  - pattern: "心臓発作"
+    category: fear_mongering
+    severity: warning
+    suggestion: "心血管リスクが増加する可能性があります"
+
+  # カテゴリ: 専門家軽視
+  - pattern: "医者より"
+    category: anti_professional
+    severity: danger
+    suggestion: "医師の診察前にご確認ください"
+  - pattern: "薬剤師より"
+    category: anti_professional
+    severity: danger
+    suggestion: "薬剤師にご相談ください"
+  - pattern: "病院に行く必要な[いし]"
+    category: anti_professional
+    severity: danger
+    suggestion: "受診前にご参考ください"
+
+disclaimer_patterns:
+  - "医師[・]?薬剤師の専門的判断に代わるものではありません"
+  - "情報提供を目的としています"
+  - "医療専門家にご相談ください"
+  - "医師にご相談ください"
+
+valid_sources:
+  - "厚生労働省"
+  - "PMDA"
+  - "日本薬剤師会"
+  - "日本医師会"
+  - "WHO"
+  - "FDA"
+
+messages:
+  banned_found: "禁止表現が検出されました"
+  claim_found: "根拠のない医学的主張が検出されました"
+  disclaimer_missing: "必須の医療免責事項がありません"
+  source_missing: "公認された出典が引用されていません"
+  dosage_exceeded: "推奨用量を超えています"
+  brand_found: "ブランド名が検出されました"
