@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "llm-medical-guard"
-version = "0.1.0"
+version = "0.2.0"
 description = "Guardrails for LLM-generated medical and health content"
 readme = "README.md"
 license = "MIT"
@@ -45,6 +45,12 @@ dev = [
     "ruff>=0.4",
     "mypy>=1.10",
 ]
+
+[project.scripts]
+llm-medical-guard = "llm_medical_guard.cli:main"
+
+[project.entry-points.pytest11]
+medical_guard = "llm_medical_guard.pytest_plugin"
 
 [project.urls]
 Homepage = "https://github.com/pillright/llm-medical-guard"

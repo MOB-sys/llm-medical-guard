@@ -1,0 +1,102 @@
+# Español — Reglas de seguridad para contenido médico
+locale: es
+
+banned_expressions:
+  # Categoría: Afirmaciones de cura
+  - pattern: "cura milagrosa"
+    category: cure_claim
+    severity: danger
+    suggestion: "opción de tratamiento basada en evidencia"
+  - pattern: "cura definitiva"
+    category: cure_claim
+    severity: danger
+    suggestion: "puede ayudar a manejar los síntomas"
+  - pattern: "curar el cáncer"
+    category: cure_claim
+    severity: danger
+    suggestion: "consulte con su oncólogo"
+  - pattern: "cura total"
+    category: cure_claim
+    severity: danger
+    suggestion: "puede contribuir a la mejora de los síntomas"
+  - pattern: "remedio milagroso"
+    category: cure_claim
+    severity: danger
+    suggestion: "opción que podría considerarse"
+  - pattern: "curación instantánea"
+    category: cure_claim
+    severity: danger
+    suggestion: "puede mostrar mejoras gradualmente"
+
+  # Categoría: Afirmaciones absolutas de seguridad
+  - pattern: "100% seguro"
+    category: absolute_claim
+    severity: danger
+    suggestion: "generalmente bien tolerado"
+  - pattern: "completamente seguro"
+    category: absolute_claim
+    severity: danger
+    suggestion: "generalmente considerado seguro según las indicaciones"
+  - pattern: "sin efectos secundarios"
+    category: absolute_claim
+    severity: danger
+    suggestion: "los efectos secundarios son poco frecuentes pero posibles"
+  - pattern: "totalmente natural"
+    category: absolute_claim
+    severity: caution
+    suggestion: "de origen natural (siga las dosis recomendadas)"
+
+  # Categoría: Alarmismo
+  - pattern: "muerte instantánea"
+    category: fear_mongering
+    severity: danger
+    suggestion: "puede presentar riesgos graves para la salud"
+  - pattern: "(?:puede|podría) matar"
+    category: fear_mongering
+    severity: danger
+    suggestion: "puede presentar riesgos significativos"
+  - pattern: "infarto"
+    category: fear_mongering
+    severity: caution
+    suggestion: "aumento del riesgo cardiovascular"
+
+  # Categoría: Anti-profesional
+  - pattern: "mejor que (?:tu |su |un )?(?:médico|doctor)"
+    category: anti_professional
+    severity: danger
+    suggestion: "puede complementar el consejo médico profesional"
+  - pattern: "no necesitas? (?:ir al |un )?(?:médico|doctor)"
+    category: anti_professional
+    severity: danger
+    suggestion: "consulte a su profesional de la salud"
+
+  # Categoría: Prevención no comprobada
+  - pattern: "previene el cáncer"
+    category: prevention_claim
+    severity: danger
+    suggestion: "algunos estudios sugieren un posible efecto protector"
+
+disclaimer_patterns:
+  - "no sustituye el consejo médico profesional"
+  - "consulte (?:a |con )?su (?:médico|doctor|profesional)"
+  - "solo con fines informativos"
+  - "no constituye asesoramiento médico"
+  - "con fines educativos"
+
+valid_sources:
+  - "OMS"
+  - "WHO"
+  - "FDA"
+  - "EMA"
+  - "AEMPS"
+  - "NIH"
+  - "PubMed"
+  - "Agencia Española de Medicamentos"
+
+messages:
+  banned_found: "Se detectó una expresión prohibida"
+  claim_found: "Se detectó una afirmación médica no fundamentada"
+  disclaimer_missing: "Falta la exención de responsabilidad médica requerida"
+  source_missing: "No se citó ninguna fuente autorizada"
+  dosage_exceeded: "La dosis excede el límite recomendado"
+  brand_found: "Se detectó un nombre de marca"

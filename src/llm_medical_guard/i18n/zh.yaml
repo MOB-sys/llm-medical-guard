@@ -1,0 +1,119 @@
+# 中文 医疗内容安全规则
+locale: zh
+
+banned_expressions:
+  # 类别：治愈/治疗声明
+  - pattern: "包治百病"
+    category: cure_claim
+    severity: danger
+    suggestion: "可能对某些症状有所帮助"
+  - pattern: "根治"
+    category: cure_claim
+    severity: danger
+    suggestion: "可能有助于缓解症状"
+  - pattern: "彻底治愈"
+    category: cure_claim
+    severity: danger
+    suggestion: "可能有助于改善症状"
+  - pattern: "药到病除"
+    category: cure_claim
+    severity: danger
+    suggestion: "有望帮助改善症状"
+  - pattern: "祖传秘方"
+    category: cure_claim
+    severity: danger
+    suggestion: "传统配方"
+  - pattern: "偏方"
+    category: cure_claim
+    severity: warning
+    suggestion: "传统做法（请咨询医生）"
+  - pattern: "神药"
+    category: cure_claim
+    severity: danger
+    suggestion: "一种受到关注的药物"
+
+  # 类别：绝对安全声明
+  - pattern: "100%安全"
+    category: absolute_claim
+    severity: danger
+    suggestion: "通常被认为是安全的"
+  - pattern: "绝对安全"
+    category: absolute_claim
+    severity: danger
+    suggestion: "按照建议使用通常是安全的"
+  - pattern: "没有副作用"
+    category: absolute_claim
+    severity: danger
+    suggestion: "副作用少见但可能存在"
+  - pattern: "无任何副作用"
+    category: absolute_claim
+    severity: danger
+    suggestion: "不良反应发生率较低"
+  - pattern: "纯天然无害"
+    category: absolute_claim
+    severity: warning
+    suggestion: "天然成分（请遵循建议用量）"
+
+  # 类别：恐吓性表达
+  - pattern: "马上就死"
+    category: fear_mongering
+    severity: danger
+    suggestion: "可能存在严重的健康风险"
+  - pattern: "必死无疑"
+    category: fear_mongering
+    severity: danger
+    suggestion: "在严重情况下可能危及生命"
+  - pattern: "猝死"
+    category: fear_mongering
+    severity: warning
+    suggestion: "可能增加心血管风险"
+
+  # 类别：反专业
+  - pattern: "比医生.*准"
+    category: anti_professional
+    severity: danger
+    suggestion: "可以作为就医前的参考"
+  - pattern: "不用去医院"
+    category: anti_professional
+    severity: danger
+    suggestion: "就医前可以先了解"
+  - pattern: "不用看医生"
+    category: anti_professional
+    severity: danger
+    suggestion: "建议咨询医生后决定"
+
+  # 类别：预防声明
+  - pattern: "预防癌症"
+    category: prevention_claim
+    severity: danger
+    suggestion: "一些研究表明可能具有保护作用"
+  - pattern: "抗癌"
+    category: prevention_claim
+    severity: warning
+    suggestion: "部分研究显示可能有益"
+
+disclaimer_patterns:
+  - "不能替代专业医疗建议"
+  - "仅供参考"
+  - "请咨询医生"
+  - "请咨询药剂师"
+  - "不构成医疗建议"
+
+valid_sources:
+  - "国家药品监督管理局"
+  - "NMPA"
+  - "国家卫生健康委员会"
+  - "世界卫生组织"
+  - "WHO"
+  - "FDA"
+  - "中国药典"
+  - "丁香园"
+  - "用药助手"
+
+messages:
+  banned_found: "检测到禁止表达"
+  claim_found: "检测到未经证实的医学声明"
+  disclaimer_missing: "缺少必要的医疗免责声明"
+  source_missing: "未引用权威来源"
+  dosage_exceeded: "剂量超过推荐上限"
+  brand_found: "检测到品牌名称"

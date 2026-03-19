@@ -15,6 +15,8 @@ import llm_medical_guard.checks.claim_severity  # noqa: F401
 import llm_medical_guard.checks.disclaimer  # noqa: F401
 import llm_medical_guard.checks.dosage  # noqa: F401
 import llm_medical_guard.checks.source_attribution  # noqa: F401
+import llm_medical_guard.checks.drug_interaction  # noqa: F401
+import llm_medical_guard.checks.context_awareness  # noqa: F401
 
 
 class MedicalGuard:

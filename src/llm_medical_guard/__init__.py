@@ -9,7 +9,9 @@ from llm_medical_guard.result import (
     Severity,
 )
 
-__version__ = "0.1.0"
+from llm_medical_guard.stream import StreamGuard, check_stream
+
+__version__ = "0.2.0"
 
 __all__ = [
     "MedicalGuard",
@@ -18,5 +20,7 @@ __all__ = [
     "CheckStatus",
     "Severity",
     "MedicalGuardError",
+    "StreamGuard",
+    "check_stream",
     "__version__",
 ]
