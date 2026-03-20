@@ -53,10 +53,10 @@ llm-medical-guard = "llm_medical_guard.cli:main"
 medical_guard = "llm_medical_guard.pytest_plugin"
 
 [project.urls]
-Homepage = "https://github.com/pillright/llm-medical-guard"
-Documentation = "https://github.com/pillright/llm-medical-guard#readme"
-Repository = "https://github.com/pillright/llm-medical-guard"
-Issues = "https://github.com/pillright/llm-medical-guard/issues"
+Homepage = "https://github.com/MOB-sys/llm-medical-guard"
+Documentation = "https://github.com/MOB-sys/llm-medical-guard#readme"
+Repository = "https://github.com/MOB-sys/llm-medical-guard"
+Issues = "https://github.com/MOB-sys/llm-medical-guard/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/llm_medical_guard"]

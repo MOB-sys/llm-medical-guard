@@ -1,8 +1,10 @@
 <p align="center">
-  <img src="https://img.shields.io/pypi/v/llm-medical-guard?color=blue" alt="PyPI">
+  <a href="https://github.com/MOB-sys/llm-medical-guard/actions/workflows/ci.yml"><img src="https://github.com/MOB-sys/llm-medical-guard/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://codecov.io/gh/MOB-sys/llm-medical-guard"><img src="https://codecov.io/gh/MOB-sys/llm-medical-guard/branch/main/graph/badge.svg" alt="Coverage"></a>
+  <a href="https://pypi.org/project/llm-medical-guard/"><img src="https://img.shields.io/pypi/v/llm-medical-guard?color=blue" alt="PyPI"></a>
   <img src="https://img.shields.io/pypi/pyversions/llm-medical-guard" alt="Python">
-  <img src="https://img.shields.io/github/license/pillright/llm-medical-guard" alt="License">
-  <img src="https://img.shields.io/github/stars/pillright/llm-medical-guard?style=social" alt="Stars">
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/MOB-sys/llm-medical-guard" alt="License"></a>
+  <img src="https://img.shields.io/github/stars/MOB-sys/llm-medical-guard?style=social" alt="Stars">
 </p>
 
 # llm-medical-guard
@@ -12,6 +14,12 @@
 **The first open-source library specifically designed to validate medical content from LLMs.**
 
 Generic guardrail tools (NeMo Guardrails, Guardrails AI, LLM Guard) handle toxicity and PII but know nothing about medicine. `llm-medical-guard` catches dangerous medical claims, validates dosages, flags drug interactions, detects fear-mongering tone, enforces disclaimers, and suggests safe alternatives — in **5 languages**, with a CLI, pytest plugin, and streaming support.
+
+<p align="center">
+  <img src="docs/demo.gif" alt="llm-medical-guard CLI demo" width="720">
+  <br>
+  <em>CLI catching dangerous dosage + cure claim + missing disclaimer in real-time</em>
+</p>
 
 ## Why?
 
@@ -100,7 +108,7 @@ for check in result.failed_checks:
 
 ## Drug Interaction Database
 
-Built-in database of 15 well-documented dangerous interactions:
+15 critical interactions included out-of-the-box, extensible via custom rules:
 
 ```python
 guard = MedicalGuard()
@@ -118,6 +126,8 @@ result = guard.check("You can safely take warfarin and aspirin together.")
 - Metformin + Alcohol (lactic acidosis)
 - Antibiotics + Dairy/Calcium (reduced absorption)
 - And 8 more...
+
+> **Note:** The built-in database covers the most critical and well-documented interactions sourced from FDA and NIH. It is not exhaustive — production systems handling novel drug combinations should layer this library with domain-specific databases. The rule engine is fully extensible via YAML config and custom check classes.
 
 ## Context-Aware Tone Analysis
 
@@ -320,7 +330,9 @@ Benchmarking llm-medical-guard (en)
   Dependencies:  pyyaml only
 ```
 
-Zero LLM API calls. Pure regex/rule-based. Runs anywhere Python runs.
+Zero LLM API calls. Pure regex/rule-based. Deterministic results. Runs anywhere Python runs.
+
+> **Design choice:** Rule-based detection is intentional. It gives you deterministic, auditable results at near-zero cost. For semantic-level validation (e.g., detecting subtly misleading claims), pair this library with an LLM-based reviewer — `llm-medical-guard` handles the fast, cheap first pass.
 
 ## Dosage Database
 
@@ -396,12 +408,21 @@ guard = MedicalGuard(locale="de")  # will look for i18n/de.yaml
 
 ## Roadmap
 
+**v0.3 — Data Expansion**
+- [ ] Expanded drug interaction database (100+ interactions)
+- [ ] Expanded dosage limits (30+ supplements/vitamins)
 - [ ] German (de), French (fr), Portuguese (pt) locales
+
+**v0.4 — Developer Tooling**
+- [ ] Pre-commit hook (`llm-medical-guard` as a pre-commit check)
+- [ ] VS Code extension (inline warnings)
+- [ ] Anthropic SDK integration
+
+**v1.0 — Enterprise**
 - [ ] ICD-10 code detection
 - [ ] FHIR resource validation
 - [ ] EU AI Act compliance report generation
-- [ ] Pre-commit hook
-- [ ] VS Code extension
+- [ ] Semantic-level validation (optional LLM-backed deep check)
 
 ## Contributing
 
