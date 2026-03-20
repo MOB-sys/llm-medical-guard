@@ -108,7 +108,7 @@ for check in result.failed_checks:
 
 ## Drug Interaction Database
 
-15 critical interactions included out-of-the-box, extensible via custom rules:
+123 interactions included out-of-the-box (FDA/NIH sourced), extensible via custom rules:
 
 ```python
 guard = MedicalGuard()
@@ -125,9 +125,13 @@ result = guard.check("You can safely take warfarin and aspirin together.")
 - St. John's Wort + Birth Control/SSRIs/Warfarin
 - Metformin + Alcohol (lactic acidosis)
 - Antibiotics + Dairy/Calcium (reduced absorption)
-- And 8 more...
+- Opioids + Benzodiazepines (respiratory depression)
+- Fluoroquinolones + QT-prolonging drugs (cardiac arrhythmia)
+- Cyclosporine + Azole antifungals (nephrotoxicity)
+- PPIs + Clopidogrel (reduced antiplatelet effect)
+- And 110+ more covering cardiovascular, CNS, antibiotics, diabetes, supplements, GI, pain, thyroid, and immunosuppressant categories...
 
-> **Note:** The built-in database covers the most critical and well-documented interactions sourced from FDA and NIH. It is not exhaustive — production systems handling novel drug combinations should layer this library with domain-specific databases. The rule engine is fully extensible via YAML config and custom check classes.
+> **Note:** The built-in database covers well-documented interactions sourced from FDA and NIH. It is extensible via YAML config and custom check classes for domain-specific needs.
 
 ## Context-Aware Tone Analysis
 
@@ -409,7 +413,7 @@ guard = MedicalGuard(locale="de")  # will look for i18n/de.yaml
 ## Roadmap
 
 **v0.3 — Data Expansion**
-- [ ] Expanded drug interaction database (100+ interactions)
+- [x] ~~Expanded drug interaction database (100+ interactions)~~ — **Done! 123 interactions**
 - [ ] Expanded dosage limits (30+ supplements/vitamins)
 - [ ] German (de), French (fr), Portuguese (pt) locales
 
