@@ -449,6 +449,16 @@ guard = MedicalGuard(locale="de")  # will look for i18n/de.yaml
 - [ ] EU AI Act compliance report generation
 - [ ] Semantic-level validation (optional LLM-backed deep check)
 
+## Related Projects
+
+Part of the [Pillright](https://github.com/MOB-sys) open-source healthcare ecosystem:
+
+- [drug-interaction-mcp](https://github.com/MOB-sys/drug-interaction-mcp) — MCP server for drug interaction checking
+- [pharma-ai-agent](https://github.com/MOB-sys/pharma-ai-agent) — RAG-based drug information AI agent
+- [awesome-drug-interactions](https://github.com/MOB-sys/awesome-drug-interactions) — Curated list of drug interaction resources
+- [korean-pharma-data](https://github.com/MOB-sys/korean-pharma-data) — Korean pharmaceutical open data pipeline
+- [fastapi-health-template](https://github.com/MOB-sys/fastapi-health-template) — Healthcare FastAPI boilerplate
+
 ## Contributing
 
 Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
