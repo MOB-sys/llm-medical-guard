@@ -458,6 +458,8 @@ Part of the [Pillright](https://github.com/MOB-sys) open-source healthcare ecosy
 - [awesome-drug-interactions](https://github.com/MOB-sys/awesome-drug-interactions) — Curated list of drug interaction resources
 - [korean-pharma-data](https://github.com/MOB-sys/korean-pharma-data) — Korean pharmaceutical open data pipeline
 - [fastapi-health-template](https://github.com/MOB-sys/fastapi-health-template) — Healthcare FastAPI boilerplate
+- [pill-id](https://github.com/MOB-sys/pill-id) — AI pill identification from images
+- [llm-medical-guard-vscode](https://github.com/MOB-sys/llm-medical-guard-vscode) — VS Code extension for medical content safety
 
 ## Contributing
 
