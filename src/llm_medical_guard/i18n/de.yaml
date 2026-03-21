@@ -1,0 +1,317 @@
+# Deutsche Regeln zur Absicherung medizinischer Inhalte
+locale: de
+
+banned_expressions:
+  # Kategorie: Heilungs-/Behandlungsversprechen
+  - pattern: "(?:heilt|kuriert|geheilt|kuriert)\\b"
+    category: cure_claim
+    severity: danger
+    suggestion: "kann bei der Linderung von Symptomen helfen"
+  - pattern: "(?:vollst(?:ae|ä)ndig|komplett|total) (?:heilen|geheilt)"
+    category: cure_claim
+    severity: danger
+    suggestion: "kann die Genesung unterst\u00FCtzen"
+  - pattern: "Wunder(?:mittel|heilung|medikament|kur)"
+    category: cure_claim
+    severity: danger
+    suggestion: "evidenzbasierte Behandlungsoption"
+  - pattern: "sofort(?:ige?)? (?:Heilung|heilen|geheilt)"
+    category: cure_claim
+    severity: danger
+    suggestion: "kann allm\u00E4hlich zur Verbesserung beitragen"
+  - pattern: "garantiert (?:wirkt|heilt|hilft)"
+    category: cure_claim
+    severity: danger
+    suggestion: "hat in Studien positive Ergebnisse gezeigt"
+  - pattern: "(?:beseitigt|eliminiert) (?:die )?(?:Krankheit|Erkrankung)"
+    category: cure_claim
+    severity: danger
+    suggestion: "kann bei der Behandlung der Erkrankung helfen"
+
+  # Kategorie: Absolute Sicherheitsaussagen
+  - pattern: "100% sicher"
+    category: absolute_claim
+    severity: danger
+    suggestion: "im Allgemeinen gut vertr\u00E4glich"
+  - pattern: "(?:vollkommen|absolut|v(?:oe|ö)llig) sicher"
+    category: absolute_claim
+    severity: danger
+    suggestion: "gilt bei bestimmungsgem\u00E4\u00DFer Anwendung als sicher"
+  - pattern: "keine Nebenwirkungen"
+    category: absolute_claim
+    severity: danger
+    suggestion: "Nebenwirkungen sind selten, aber m\u00F6glich"
+  - pattern: "(?:null|kein(?:erlei)?) Risiko"
+    category: absolute_claim
+    severity: danger
+    suggestion: "geringes Risiko bei bestimmungsgem\u00E4\u00DFer Anwendung"
+  - pattern: "perfekt sicher"
+    category: absolute_claim
+    severity: danger
+    suggestion: "im Allgemeinen gut vertr\u00E4glich bei empfohlener Dosierung"
+
+  # Kategorie: Panikmache / \u00DCbertreibung
+  - pattern: "(?:Sie |es )?(?:werden|k(?:oe|ö)nnte[ns]?|kann) (?:sterben|t(?:oe|ö)ten)"
+    category: fear_mongering
+    severity: danger
+    suggestion: "kann ernsthafte Gesundheitsrisiken darstellen"
+  - pattern: "sofortiger Tod"
+    category: fear_mongering
+    severity: danger
+    suggestion: "in schweren F\u00E4llen potenziell lebensbedrohlich"
+  - pattern: "t(?:oe|ö)dlich gef(?:ae|ä)hrlich"
+    category: fear_mongering
+    severity: warning
+    suggestion: "potenziell sch\u00E4dlich"
+  - pattern: "t(?:oe|ö)dliche Kombination"
+    category: fear_mongering
+    severity: warning
+    suggestion: "potenziell gef\u00E4hrliche Kombination"
+  - pattern: "Herzinfarkt"
+    category: fear_mongering
+    severity: caution
+    suggestion: "erh\u00F6htes kardiovaskul\u00E4res Risiko"
+
+  # Kategorie: Gegen Fachpersonal
+  - pattern: "(?:besser|genauer|schlauer) als (?:Ihr |ein )?(?:Arzt|(?:Ae|Ä)rztin|Apotheker(?:in)?)"
+    category: anti_professional
+    severity: danger
+    suggestion: "kann professionelle medizinische Beratung erg\u00E4nzen"
+  - pattern: "(?:brauchen|m(?:ue|ü)ssen) (?:keinen|nicht zum) (?:Arzt|(?:Ae|Ä)rztin|Apotheker(?:in)?)"
+    category: anti_professional
+    severity: danger
+    suggestion: "fragen Sie Ihren Arzt oder Apotheker"
+  - pattern: "ersetzt (?:Ihren |den )?(?:Arzt|(?:Ae|Ä)rztin|Apotheker(?:in)?)"
+    category: anti_professional
+    severity: danger
+    suggestion: "eine Erg\u00E4nzung zur professionellen medizinischen Betreuung"
+  - pattern: "(?:Ae|Ä)rzte (?:wollen|m(?:oe|ö)chten|werden Ihnen) nicht"
+    category: anti_professional
+    severity: danger
+    suggestion: "ein Bereich laufender medizinischer Forschung"
+
+  # Kategorie: Unbelegte Pr\u00E4ventionsaussagen
+  - pattern: "(?:verhindert|beugt vor|sch(?:ue|ü)tzt vor) Krebs"
+    category: prevention_claim
+    severity: danger
+    suggestion: "einige Studien deuten auf eine m\u00F6gliche Schutzwirkung hin"
+  - pattern: "(?:verhindert|beugt vor|sch(?:ue|ü)tzt vor) (?:Herz(?:krankheit|infarkt)|Schlaganfall|Diabetes|Alzheimer)"
+    category: prevention_claim
+    severity: warning
+    suggestion: "kann die kardiovaskul\u00E4re/metabolische Gesundheit unterst\u00FCtzen"
+  - pattern: "Anti-Aging"
+    category: prevention_claim
+    severity: caution
+    suggestion: "kann gesundes Altern unterst\u00FCtzen"
+
+  # Kategorie: Gef\u00E4lschte Erfahrungsberichte
+  - pattern: "(?:ich )?(?:wurde|bin) geheilt"
+    category: fake_testimonial
+    severity: warning
+    suggestion: "individuelle Ergebnisse k\u00F6nnen variieren"
+  - pattern: "(?:hat|es hat) mein Leben (?:ver(?:ae|ä)ndert|gerettet)"
+    category: fake_testimonial
+    severity: caution
+    suggestion: "einige Anwender berichten von positiven Erfahrungen"
+  - pattern: "jeder sollte (?:das|dies) (?:nehmen|verwenden|probieren)"
+    category: fake_testimonial
+    severity: warning
+    suggestion: "kann mit Ihrem Arzt besprochen werden"
+
+  # Kategorie: Direkte Empfehlung
+  - pattern: "(?:Sie )?(?:m(?:ue|ü)ssen|sollten) (?:das|dies) (?:nehmen|verwenden|probieren)"
+    category: direct_recommendation
+    severity: warning
+    suggestion: "besprechen Sie diese Option mit Ihrem Arzt"
+  - pattern: "(?:nehmen|verwenden) Sie (?:das|dies) (?:stattdessen|jetzt|sofort)"
+    category: direct_recommendation
+    severity: warning
+    suggestion: "fragen Sie Ihren Arzt zu dieser Option"
+
+claim_patterns:
+  - pattern: "(?:behandelt|heilt|behebt|beseitigt) (?:Ihre )?\\w+"
+    severity: warning
+  - pattern: "nachweislich (?:wirksam|heilend|behandelnd)"
+    severity: warning
+  - pattern: "klinisch (?:erprobt|bewiesen|getestet)"
+    severity: caution
+  - pattern: "wissenschaftlich (?:erprobt|bewiesen|belegt)"
+    severity: caution
+  - pattern: "(?:BfArM|EMA)[- ]zugelassen"
+    severity: caution
+
+disclaimer_patterns:
+  - "kein Ersatz f(?:ue|ü)r professionelle (?:ae|ä)rztliche Beratung"
+  - "nicht zur Diagnose, Behandlung, Heilung oder Vorbeugung"
+  - "(?:fragen|konsultieren) Sie (?:Ihren )?(?:Arzt|Apotheker|Gesundheitsdienstleister)"
+  - "ersetzt nicht (?:die )?(?:professionelle )?(?:ae|ä)rztliche (?:Beratung|Beurteilung)"
+  - "dient nur zu Informationszwecken"
+
+valid_sources:
+  - "FDA"
+  - "NIH"
+  - "WHO"
+  - "PubMed"
+  - "Mayo Clinic"
+  - "MedlinePlus"
+  - "DrugBank"
+  - "UpToDate"
+  - "Cochrane"
+  - "peer-reviewed"
+  - "EMA"
+  - "BfArM"
+  - "PEI"
+  - "ABDA"
+  - "RKI"
+  - "DIMDI"
+  - "Gelbe Liste"
+  - "Rote Liste"
+  - "Pharmazeutische Zeitung"
+  - "Arznei-Telegramm"
+
+dosage:
+  units:
+    - "mg"
+    - "mcg"
+    - "\u00B5g"
+    - "g"
+    - "ml"
+    - "mL"
+    - "IU"
+    - "IE"
+    - "Tablette[n]?"
+    - "Kapsel[n]?"
+  known_limits:
+    vitamin_d:
+      names: ["vitamin d", "vitamin d3", "cholecalciferol", "Vitamin D", "Vitamin D3", "Cholecalciferol"]
+      max_daily: 4000
+      unit: "IU"
+      warning_threshold: 10000
+    vitamin_c:
+      names: ["vitamin c", "ascorbic acid", "Vitamin C", "Ascorbins\u00E4ure"]
+      max_daily: 2000
+      unit: "mg"
+      warning_threshold: 5000
+    iron:
+      names: ["iron", "ferrous sulfate", "ferrous gluconate", "Eisen", "Eisensulfat", "Eisengluconat"]
+      max_daily: 45
+      unit: "mg"
+      warning_threshold: 100
+    calcium:
+      names: ["calcium", "calcium carbonate", "calcium citrate", "Kalzium", "Calciumcarbonat", "Calciumcitrat"]
+      max_daily: 2500
+      unit: "mg"
+      warning_threshold: 4000
+    zinc:
+      names: ["zinc", "Zink"]
+      max_daily: 40
+      unit: "mg"
+      warning_threshold: 100
+    omega_3:
+      names: ["omega-3", "fish oil", "EPA", "DHA", "Omega-3", "Fisch\u00F6l"]
+      max_daily: 3000
+      unit: "mg"
+      warning_threshold: 5000
+    magnesium:
+      names: ["magnesium", "Magnesium"]
+      max_daily: 400
+      unit: "mg"
+      warning_threshold: 800
+    vitamin_a:
+      names: ["vitamin a", "retinol", "Vitamin A", "Retinol"]
+      max_daily: 3000
+      unit: "mcg"
+      warning_threshold: 10000
+    vitamin_b6:
+      names: ["vitamin b6", "pyridoxine", "Vitamin B6", "Pyridoxin"]
+      max_daily: 100
+      unit: "mg"
+      warning_threshold: 200
+    melatonin:
+      names: ["melatonin", "Melatonin"]
+      max_daily: 5
+      unit: "mg"
+      warning_threshold: 20
+    vitamin_e:
+      names: ["vitamin e", "alpha-tocopherol", "tocopherol", "Vitamin E", "Alpha-Tocopherol", "Tocopherol"]
+      max_daily: 1000
+      unit: "mg"
+      warning_threshold: 1500
+    vitamin_b12:
+      names: ["vitamin b12", "cobalamin", "cyanocobalamin", "methylcobalamin", "Vitamin B12", "Cobalamin", "Cyanocobalamin", "Methylcobalamin"]
+      max_daily: 2000
+      unit: "mcg"
+      warning_threshold: 5000
+    folic_acid:
+      names: ["folic acid", "folate", "vitamin b9", "Fols\u00E4ure", "Folat", "Vitamin B9"]
+      max_daily: 1000
+      unit: "mcg"
+      warning_threshold: 2000
+    vitamin_k:
+      names: ["vitamin k", "vitamin k1", "vitamin k2", "phylloquinone", "menaquinone", "Vitamin K", "Vitamin K1", "Vitamin K2", "Phyllochinon", "Menachinon"]
+      max_daily: 120
+      unit: "mcg"
+      warning_threshold: 500
+    selenium:
+      names: ["selenium", "selenomethionine", "Selen", "Selenomethionin"]
+      max_daily: 400
+      unit: "mcg"
+      warning_threshold: 800
+    chromium:
+      names: ["chromium", "chromium picolinate", "Chrom", "Chrompicolinat"]
+      max_daily: 200
+      unit: "mcg"
+      warning_threshold: 1000
+    manganese:
+      names: ["manganese", "Mangan"]
+      max_daily: 11
+      unit: "mg"
+      warning_threshold: 20
+    copper:
+      names: ["copper", "copper gluconate", "copper sulfate", "Kupfer", "Kupfergluconat", "Kupfersulfat"]
+      max_daily: 10
+      unit: "mg"
+      warning_threshold: 20
+    biotin:
+      names: ["biotin", "vitamin b7", "Biotin", "Vitamin B7"]
+      max_daily: 2500
+      unit: "mcg"
+      warning_threshold: 10000
+    potassium:
+      names: ["potassium", "potassium chloride", "potassium citrate", "Kalium", "Kaliumchlorid", "Kaliumcitrat"]
+      max_daily: 3400
+      unit: "mg"
+      warning_threshold: 5000
+    phosphorus:
+      names: ["phosphorus", "phosphate", "Phosphor", "Phosphat"]
+      max_daily: 4000
+      unit: "mg"
+      warning_threshold: 6000
+    niacin:
+      names: ["niacin", "vitamin b3", "nicotinic acid", "nicotinamide", "Niacin", "Vitamin B3", "Nicotins\u00E4ure", "Nicotinamid"]
+      max_daily: 35
+      unit: "mg"
+      warning_threshold: 100
+    coq10:
+      names: ["coq10", "coenzyme q10", "ubiquinone", "ubiquinol", "CoQ10", "Coenzym Q10", "Ubichinon", "Ubichinol"]
+      max_daily: 300
+      unit: "mg"
+      warning_threshold: 600
+    turmeric:
+      names: ["turmeric", "curcumin", "Kurkuma", "Curcumin"]
+      max_daily: 1500
+      unit: "mg"
+      warning_threshold: 3000
+    iodine:
+      names: ["iodine", "potassium iodide", "Jod", "Kaliumiodid"]
+      max_daily: 1100
+      unit: "mcg"
+      warning_threshold: 2000
+
+messages:
+  banned_found: "Unzul\u00E4ssiger Ausdruck erkannt"
+  claim_found: "Unbelegte medizinische Behauptung erkannt"
+  disclaimer_missing: "Erforderlicher medizinischer Haftungsausschluss fehlt"
+  source_missing: "Keine autorisierte Quelle angegeben"
+  dosage_exceeded: "Dosierung \u00FCberschreitet die empfohlene Grenze"
+  brand_found: "Markenname erkannt"

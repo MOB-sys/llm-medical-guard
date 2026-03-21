@@ -1,0 +1,317 @@
+# R\u00E8gles de protection du contenu m\u00E9dical en fran\u00E7ais
+locale: fr
+
+banned_expressions:
+  # Cat\u00E9gorie: All\u00E9gations de gu\u00E9rison/traitement
+  - pattern: "gu(?:e|é)ri(?:t|r|s|e|ssent)\\b"
+    category: cure_claim
+    severity: danger
+    suggestion: "peut aider \u00E0 g\u00E9rer les sympt\u00F4mes"
+  - pattern: "(?:compl(?:e|è)tement|totalement|enti(?:e|è)rement) gu(?:e|é)ri"
+    category: cure_claim
+    severity: danger
+    suggestion: "peut soutenir la gu\u00E9rison"
+  - pattern: "(?:rem(?:e|è)de|traitement|m(?:e|é)dicament) miracle"
+    category: cure_claim
+    severity: danger
+    suggestion: "option de traitement fond\u00E9e sur des preuves"
+  - pattern: "gu(?:e|é)ri(?:son|r) (?:instantan(?:e|é)e?|imm(?:e|é)diate?)"
+    category: cure_claim
+    severity: danger
+    suggestion: "peut progressivement aider \u00E0 am\u00E9liorer"
+  - pattern: "garanti(?:e|t)? (?:de |pour )?(?:fonctionner|gu(?:e|é)rir|soigner)"
+    category: cure_claim
+    severity: danger
+    suggestion: "a montr\u00E9 des r\u00E9sultats positifs dans des \u00E9tudes"
+  - pattern: "(?:e|é)limine (?:la )?(?:maladie|affection|pathologie)"
+    category: cure_claim
+    severity: danger
+    suggestion: "peut aider \u00E0 g\u00E9rer la maladie"
+
+  # Cat\u00E9gorie: All\u00E9gations de s\u00E9curit\u00E9 absolue
+  - pattern: "100% s(?:u|û)r"
+    category: absolute_claim
+    severity: danger
+    suggestion: "g\u00E9n\u00E9ralement bien tol\u00E9r\u00E9"
+  - pattern: "(?:compl(?:e|è)tement|parfaitement|totalement|absolument) s(?:u|û)r"
+    category: absolute_claim
+    severity: danger
+    suggestion: "g\u00E9n\u00E9ralement consid\u00E9r\u00E9 comme s\u00FBr lorsqu'il est utilis\u00E9 conform\u00E9ment aux instructions"
+  - pattern: "(?:aucun|sans|pas d[e']?) (?:effet[s]? (?:secondaire|ind(?:e|é)sirable)|effet[s]? n(?:e|é)gatif)"
+    category: absolute_claim
+    severity: danger
+    suggestion: "les effets secondaires sont rares mais possibles"
+  - pattern: "(?:z(?:e|é)ro|aucun) risque"
+    category: absolute_claim
+    severity: danger
+    suggestion: "faible risque lorsqu'il est utilis\u00E9 conform\u00E9ment aux instructions"
+  - pattern: "parfaitement s(?:u|û)r"
+    category: absolute_claim
+    severity: danger
+    suggestion: "g\u00E9n\u00E9ralement bien tol\u00E9r\u00E9 aux doses recommand\u00E9es"
+
+  # Cat\u00E9gorie: Alarmisme / exag\u00E9ration
+  - pattern: "(?:vous |il )?(?:allez|pourriez|pouvez|va) (?:mourir|tuer)"
+    category: fear_mongering
+    severity: danger
+    suggestion: "peut pr\u00E9senter des risques graves pour la sant\u00E9"
+  - pattern: "mort (?:instantan(?:e|é)e|imm(?:e|é)diate|subite)"
+    category: fear_mongering
+    severity: danger
+    suggestion: "potentiellement mortel dans les cas graves"
+  - pattern: "(?:mortellement|fatalement) dangereu(?:x|se)"
+    category: fear_mongering
+    severity: warning
+    suggestion: "potentiellement nocif"
+  - pattern: "combinaison (?:mortelle|fatale)"
+    category: fear_mongering
+    severity: warning
+    suggestion: "combinaison potentiellement dangereuse"
+  - pattern: "crise cardiaque"
+    category: fear_mongering
+    severity: caution
+    suggestion: "risque cardiovasculaire accru"
+
+  # Cat\u00E9gorie: Anti-professionnel
+  - pattern: "(?:mieux|plus pr(?:e|é)cis|plus intelligent) que (?:votre |un )?(?:m(?:e|é)decin|docteur|pharmacien)"
+    category: anti_professional
+    severity: danger
+    suggestion: "peut compl\u00E9ter les conseils m\u00E9dicaux professionnels"
+  - pattern: "(?:pas besoin|inutile) (?:de |d')?(?:consulter |voir )?(?:un |votre )?(?:m(?:e|é)decin|docteur|pharmacien)"
+    category: anti_professional
+    severity: danger
+    suggestion: "consultez votre professionnel de sant\u00E9"
+  - pattern: "remplace (?:votre |le )?(?:m(?:e|é)decin|docteur|pharmacien)"
+    category: anti_professional
+    severity: danger
+    suggestion: "un compl\u00E9ment aux soins m\u00E9dicaux professionnels"
+  - pattern: "(?:les )?(?:m(?:e|é)decins?|docteurs?) (?:ne veulent pas|d(?:e|é)testent|ne (?:vous )?diront pas)"
+    category: anti_professional
+    severity: danger
+    suggestion: "un domaine de recherche m\u00E9dicale en cours"
+
+  # Cat\u00E9gorie: All\u00E9gations de pr\u00E9vention non v\u00E9rifi\u00E9es
+  - pattern: "(?:pr(?:e|é)vient|emp(?:e|ê)che|prot(?:e|è)ge (?:du |contre le )) cancer"
+    category: prevention_claim
+    severity: danger
+    suggestion: "certaines \u00E9tudes sugg\u00E8rent un effet protecteur possible"
+  - pattern: "(?:pr(?:e|é)vient|emp(?:e|ê)che|prot(?:e|è)ge contre) (?:(?:les )?maladies? cardiaques?|(?:l[ea]' )?(?:AVC|diab(?:e|è)te|Alzheimer|infarctus))"
+    category: prevention_claim
+    severity: warning
+    suggestion: "peut contribuer \u00E0 soutenir la sant\u00E9 cardiovasculaire/m\u00E9tabolique"
+  - pattern: "anti-(?:a|â)ge"
+    category: prevention_claim
+    severity: caution
+    suggestion: "peut favoriser un vieillissement en bonne sant\u00E9"
+
+  # Cat\u00E9gorie: Faux t\u00E9moignages
+  - pattern: "(?:j'ai (?:e|é)t(?:e|é) |je suis )gu(?:e|é)ri"
+    category: fake_testimonial
+    severity: warning
+    suggestion: "les r\u00E9sultats individuels peuvent varier"
+  - pattern: "(?:(?:c|ç)a|cela) (?:a chang(?:e|é)|a sauv(?:e|é)) ma vie"
+    category: fake_testimonial
+    severity: caution
+    suggestion: "certains utilisateurs rapportent des exp\u00E9riences positives"
+  - pattern: "tout le monde devrait (?:prendre|utiliser|essayer)"
+    category: fake_testimonial
+    severity: warning
+    suggestion: "peut valoir la peine d'en discuter avec votre professionnel de sant\u00E9"
+
+  # Cat\u00E9gorie: Recommandation directe
+  - pattern: "(?:vous )?(?:devez|devriez) (?:prendre|utiliser|essayer) (?:ceci|cela|ce)"
+    category: direct_recommendation
+    severity: warning
+    suggestion: "vous pouvez discuter de cette option avec votre m\u00E9decin"
+  - pattern: "(?:prenez|utilisez) (?:ceci|cela) (?:(?:a|à) la place|maintenant|imm(?:e|é)diatement|tout de suite)"
+    category: direct_recommendation
+    severity: warning
+    suggestion: "consultez votre professionnel de sant\u00E9 \u00E0 propos de cette option"
+
+claim_patterns:
+  - pattern: "(?:traite|gu(?:e|é)rit|soigne|corrige|inverse) (?:votre )?\\w+"
+    severity: warning
+  - pattern: "prouv(?:e|é) pour (?:fonctionner|gu(?:e|é)rir|traiter|pr(?:e|é)venir)"
+    severity: warning
+  - pattern: "cliniquement prouv(?:e|é)"
+    severity: caution
+  - pattern: "scientifiquement prouv(?:e|é)"
+    severity: caution
+  - pattern: "(?:ANSM|EMA)[- ]approuv(?:e|é)"
+    severity: caution
+
+disclaimer_patterns:
+  - "ne (?:se )?substitue pas (?:a|à) un avis m(?:e|é)dical professionnel"
+  - "n'est pas destin(?:e|é) (?:a|à) diagnostiquer, traiter, gu(?:e|é)rir ou pr(?:e|é)venir"
+  - "consultez votre (?:m(?:e|é)decin|pharmacien|professionnel de sant(?:e|é))"
+  - "ne remplace pas (?:l')?avis m(?:e|é)dical (?:professionnel)?"
+  - "(?:a|à) titre (?:d'information|informatif) uniquement"
+
+valid_sources:
+  - "FDA"
+  - "NIH"
+  - "WHO"
+  - "PubMed"
+  - "Mayo Clinic"
+  - "MedlinePlus"
+  - "DrugBank"
+  - "UpToDate"
+  - "Cochrane"
+  - "peer-reviewed"
+  - "EMA"
+  - "ANSM"
+  - "HAS"
+  - "ANSES"
+  - "Vidal"
+  - "INSERM"
+  - "Minist\u00E8re de la Sant\u00E9"
+  - "Ordre des pharmaciens"
+  - "Ordre des m\u00E9decins"
+
+dosage:
+  units:
+    - "mg"
+    - "mcg"
+    - "\u00B5g"
+    - "g"
+    - "ml"
+    - "mL"
+    - "IU"
+    - "UI"
+    - "comprim(?:e|é)[s]?"
+    - "g(?:e|é)lule[s]?"
+    - "sachet[s]?"
+  known_limits:
+    vitamin_d:
+      names: ["vitamin d", "vitamin d3", "cholecalciferol", "vitamine D", "vitamine D3", "chol\u00E9calcif\u00E9rol"]
+      max_daily: 4000
+      unit: "IU"
+      warning_threshold: 10000
+    vitamin_c:
+      names: ["vitamin c", "ascorbic acid", "vitamine C", "acide ascorbique"]
+      max_daily: 2000
+      unit: "mg"
+      warning_threshold: 5000
+    iron:
+      names: ["iron", "ferrous sulfate", "ferrous gluconate", "fer", "sulfate ferreux", "gluconate ferreux"]
+      max_daily: 45
+      unit: "mg"
+      warning_threshold: 100
+    calcium:
+      names: ["calcium", "calcium carbonate", "calcium citrate", "carbonate de calcium", "citrate de calcium"]
+      max_daily: 2500
+      unit: "mg"
+      warning_threshold: 4000
+    zinc:
+      names: ["zinc"]
+      max_daily: 40
+      unit: "mg"
+      warning_threshold: 100
+    omega_3:
+      names: ["omega-3", "fish oil", "EPA", "DHA", "om\u00E9ga-3", "huile de poisson"]
+      max_daily: 3000
+      unit: "mg"
+      warning_threshold: 5000
+    magnesium:
+      names: ["magnesium", "magn\u00E9sium"]
+      max_daily: 400
+      unit: "mg"
+      warning_threshold: 800
+    vitamin_a:
+      names: ["vitamin a", "retinol", "vitamine A", "r\u00E9tinol"]
+      max_daily: 3000
+      unit: "mcg"
+      warning_threshold: 10000
+    vitamin_b6:
+      names: ["vitamin b6", "pyridoxine", "vitamine B6"]
+      max_daily: 100
+      unit: "mg"
+      warning_threshold: 200
+    melatonin:
+      names: ["melatonin", "m\u00E9latonine"]
+      max_daily: 5
+      unit: "mg"
+      warning_threshold: 20
+    vitamin_e:
+      names: ["vitamin e", "alpha-tocopherol", "tocopherol", "vitamine E", "alpha-tocoph\u00E9rol", "tocoph\u00E9rol"]
+      max_daily: 1000
+      unit: "mg"
+      warning_threshold: 1500
+    vitamin_b12:
+      names: ["vitamin b12", "cobalamin", "cyanocobalamin", "methylcobalamin", "vitamine B12", "cobalamine", "cyanocobalamine", "m\u00E9thylcobalamine"]
+      max_daily: 2000
+      unit: "mcg"
+      warning_threshold: 5000
+    folic_acid:
+      names: ["folic acid", "folate", "vitamin b9", "acide folique", "folate", "vitamine B9"]
+      max_daily: 1000
+      unit: "mcg"
+      warning_threshold: 2000
+    vitamin_k:
+      names: ["vitamin k", "vitamin k1", "vitamin k2", "phylloquinone", "menaquinone", "vitamine K", "vitamine K1", "vitamine K2", "phylloquinone", "m\u00E9naquinone"]
+      max_daily: 120
+      unit: "mcg"
+      warning_threshold: 500
+    selenium:
+      names: ["selenium", "selenomethionine", "s\u00E9l\u00E9nium", "s\u00E9l\u00E9nom\u00E9thionine"]
+      max_daily: 400
+      unit: "mcg"
+      warning_threshold: 800
+    chromium:
+      names: ["chromium", "chromium picolinate", "chrome", "picolinate de chrome"]
+      max_daily: 200
+      unit: "mcg"
+      warning_threshold: 1000
+    manganese:
+      names: ["manganese", "mangan\u00E8se"]
+      max_daily: 11
+      unit: "mg"
+      warning_threshold: 20
+    copper:
+      names: ["copper", "copper gluconate", "copper sulfate", "cuivre", "gluconate de cuivre", "sulfate de cuivre"]
+      max_daily: 10
+      unit: "mg"
+      warning_threshold: 20
+    biotin:
+      names: ["biotin", "vitamin b7", "biotine", "vitamine B7"]
+      max_daily: 2500
+      unit: "mcg"
+      warning_threshold: 10000
+    potassium:
+      names: ["potassium", "potassium chloride", "potassium citrate", "chlorure de potassium", "citrate de potassium"]
+      max_daily: 3400
+      unit: "mg"
+      warning_threshold: 5000
+    phosphorus:
+      names: ["phosphorus", "phosphate", "phosphore"]
+      max_daily: 4000
+      unit: "mg"
+      warning_threshold: 6000
+    niacin:
+      names: ["niacin", "vitamin b3", "nicotinic acid", "nicotinamide", "niacine", "vitamine B3", "acide nicotinique"]
+      max_daily: 35
+      unit: "mg"
+      warning_threshold: 100
+    coq10:
+      names: ["coq10", "coenzyme q10", "ubiquinone", "ubiquinol", "CoQ10", "coenzyme Q10"]
+      max_daily: 300
+      unit: "mg"
+      warning_threshold: 600
+    turmeric:
+      names: ["turmeric", "curcumin", "curcuma", "curcumine"]
+      max_daily: 1500
+      unit: "mg"
+      warning_threshold: 3000
+    iodine:
+      names: ["iodine", "potassium iodide", "iode", "iodure de potassium"]
+      max_daily: 1100
+      unit: "mcg"
+      warning_threshold: 2000
+
+messages:
+  banned_found: "Expression interdite d\u00E9tect\u00E9e"
+  claim_found: "All\u00E9gation m\u00E9dicale non \u00E9tay\u00E9e d\u00E9tect\u00E9e"
+  disclaimer_missing: "Clause de non-responsabilit\u00E9 m\u00E9dicale requise non trouv\u00E9e"
+  source_missing: "Aucune source autoris\u00E9e cit\u00E9e"
+  dosage_exceeded: "Le dosage d\u00E9passe la limite recommand\u00E9e"
+  brand_found: "Nom de marque d\u00E9tect\u00E9"
