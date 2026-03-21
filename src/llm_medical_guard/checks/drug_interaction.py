@@ -1739,6 +1739,609 @@ _KNOWN_INTERACTIONS: list[dict] = [
         ),
         "source": "NIH / Endocrine Practice",
     },
+    # --- Additional commonly prescribed drug interactions ---
+    # Carbamazepine + Erythromycin
+    {
+        "drug_a": ["carbamazepine", "tegretol"],
+        "drug_b": ["erythromycin", "ery-tab", "erythrocin"],
+        "severity": "danger",
+        "description": (
+            "Erythromycin inhibits CYP3A4, significantly increasing"
+            " carbamazepine levels. Risk of ataxia, dizziness,"
+            " drowsiness, and carbamazepine toxicity."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Phenytoin + Fluconazole
+    {
+        "drug_a": ["phenytoin", "dilantin"],
+        "drug_b": ["fluconazole", "diflucan"],
+        "severity": "warning",
+        "description": (
+            "Fluconazole inhibits CYP2C9, increasing phenytoin"
+            " levels. Risk of nystagmus, ataxia, and phenytoin"
+            " toxicity. Monitor phenytoin levels."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Tetracycline + Iron supplements
+    {
+        "drug_a": ["tetracycline", "doxycycline", "minocycline"],
+        "drug_b": [
+            "iron", "ferrous sulfate", "ferrous gluconate",
+            "ferrous fumarate", "iron supplement",
+        ],
+        "severity": "warning",
+        "description": (
+            "Iron forms insoluble chelates with tetracyclines,"
+            " reducing antibiotic absorption by up to 90%."
+            " Separate doses by at least 2-3 hours."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Levothyroxine + Antacids (aluminum/magnesium)
+    {
+        "drug_a": ["levothyroxine", "synthroid", "thyroid medication"],
+        "drug_b": [
+            "antacid", "aluminum hydroxide", "magnesium hydroxide",
+            "maalox", "mylanta", "tums",
+        ],
+        "severity": "warning",
+        "description": (
+            "Antacids bind levothyroxine in the GI tract,"
+            " reducing its absorption. Take levothyroxine"
+            " at least 4 hours before antacids."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Beta-blockers + Insulin
+    {
+        "drug_a": [
+            "propranolol", "inderal", "metoprolol",
+            "atenolol", "nadolol", "beta blocker",
+        ],
+        "drug_b": [
+            "insulin", "insulin glargine", "lantus",
+            "humalog", "novolog",
+        ],
+        "severity": "warning",
+        "description": (
+            "Beta-blockers mask tachycardia and tremor,"
+            " the key warning signs of hypoglycemia."
+            " Non-selective beta-blockers also impair"
+            " glycogenolysis, prolonging hypoglycemic episodes."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Ketoconazole + Cisapride
+    {
+        "drug_a": ["ketoconazole", "nizoral"],
+        "drug_b": ["cisapride", "propulsid"],
+        "severity": "danger",
+        "description": (
+            "Ketoconazole inhibits CYP3A4, increasing cisapride"
+            " levels and risk of fatal QT prolongation and"
+            " Torsades de Pointes. Contraindicated."
+        ),
+        "source": "FDA Drug Safety Communication",
+    },
+    # Erythromycin + Terfenadine
+    {
+        "drug_a": ["erythromycin", "ery-tab", "erythrocin"],
+        "drug_b": ["terfenadine", "seldane"],
+        "severity": "danger",
+        "description": (
+            "Erythromycin inhibits CYP3A4, increasing terfenadine"
+            " levels. Risk of fatal cardiac arrhythmias"
+            " (Torsades de Pointes). Contraindicated."
+        ),
+        "source": "FDA Drug Safety Communication",
+    },
+    # Valproic acid + Lamotrigine
+    {
+        "drug_a": ["valproic acid", "depakote", "divalproex", "valproate"],
+        "drug_b": ["lamotrigine", "lamictal"],
+        "severity": "warning",
+        "description": (
+            "Valproic acid inhibits lamotrigine glucuronidation,"
+            " doubling lamotrigine half-life. Increased risk of"
+            " serious rash including Stevens-Johnson syndrome."
+            " Lamotrigine dose must be reduced by 50%."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Quinidine + Digoxin
+    {
+        "drug_a": ["quinidine", "quinidex"],
+        "drug_b": ["digoxin", "lanoxin"],
+        "severity": "danger",
+        "description": (
+            "Quinidine displaces digoxin from tissue binding sites"
+            " and reduces renal clearance, doubling digoxin levels."
+            " Risk of fatal digoxin toxicity."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Fluconazole + Statins (simvastatin/lovastatin)
+    {
+        "drug_a": ["fluconazole", "diflucan"],
+        "drug_b": ["simvastatin", "zocor", "lovastatin", "mevacor"],
+        "severity": "warning",
+        "description": (
+            "Fluconazole inhibits CYP3A4 and CYP2C9,"
+            " increasing statin levels significantly."
+            " Risk of rhabdomyolysis. Avoid concurrent use."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Rifampin + Oral contraceptives (explicit entry)
+    {
+        "drug_a": ["rifampin", "rifadin", "rifampicin"],
+        "drug_b": [
+            "oral contraceptive", "birth control",
+            "ethinyl estradiol", "levonorgestrel",
+            "norethindrone",
+        ],
+        "severity": "danger",
+        "description": (
+            "Rifampin powerfully induces CYP3A4, reducing"
+            " contraceptive hormone levels by 40-60%."
+            " Use non-hormonal contraception."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Ciprofloxacin + Antacids (explicit aluminum/magnesium)
+    {
+        "drug_a": ["ciprofloxacin", "cipro", "levofloxacin"],
+        "drug_b": [
+            "antacid", "aluminum hydroxide",
+            "magnesium hydroxide", "maalox", "mylanta",
+        ],
+        "severity": "warning",
+        "description": (
+            "Metal cations in antacids chelate fluoroquinolones,"
+            " reducing absorption by up to 90%."
+            " Take fluoroquinolone 2 hours before or 6 hours"
+            " after antacids."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Potassium-sparing diuretics + ACE inhibitors (explicit entry)
+    {
+        "drug_a": [
+            "spironolactone", "aldactone", "triamterene",
+            "amiloride", "eplerenone", "inspra",
+        ],
+        "drug_b": [
+            "lisinopril", "enalapril", "ramipril",
+            "benazepril", "ace inhibitor",
+        ],
+        "severity": "warning",
+        "description": (
+            "Both drug classes increase serum potassium."
+            " Combined use significantly increases risk of"
+            " life-threatening hyperkalemia, especially in"
+            " patients with renal impairment."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # --- More commonly prescribed interactions ---
+    # Methotrexate + Trimethoprim-Sulfamethoxazole
+    {
+        "drug_a": ["methotrexate", "trexall"],
+        "drug_b": [
+            "trimethoprim", "bactrim",
+            "sulfamethoxazole-trimethoprim", "tmp-smx",
+        ],
+        "severity": "danger",
+        "description": (
+            "Both are folate antagonists. Combined use causes"
+            " additive bone marrow suppression with risk of"
+            " pancytopenia. Potentially fatal."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Warfarin + Acetaminophen (high dose)
+    {
+        "drug_a": ["warfarin", "coumadin"],
+        "drug_b": ["acetaminophen", "tylenol", "paracetamol"],
+        "severity": "caution",
+        "description": (
+            "Regular high-dose acetaminophen (>2g/day) can"
+            " potentiate warfarin's anticoagulant effect,"
+            " increasing INR and bleeding risk."
+        ),
+        "source": "FDA Drug Label / Clinical Literature",
+    },
+    # Doxycycline + Isotretinoin
+    {
+        "drug_a": ["doxycycline", "doryx", "tetracycline", "minocycline"],
+        "drug_b": ["isotretinoin", "accutane", "claravis"],
+        "severity": "danger",
+        "description": (
+            "Both drugs can cause intracranial hypertension"
+            " (pseudotumor cerebri). Combined use significantly"
+            " increases this risk. Contraindicated."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Metformin + IV contrast dye
+    {
+        "drug_a": ["metformin", "glucophage"],
+        "drug_b": [
+            "contrast dye", "iodinated contrast",
+            "contrast medium", "contrast agent",
+        ],
+        "severity": "danger",
+        "description": (
+            "Iodinated contrast media can cause acute kidney"
+            " injury, impairing metformin excretion and risking"
+            " fatal lactic acidosis. Hold metformin 48 hours"
+            " before and after contrast administration."
+        ),
+        "source": "FDA Drug Label / ACR Guidelines",
+    },
+    # Digoxin + Clarithromycin
+    {
+        "drug_a": ["digoxin", "lanoxin"],
+        "drug_b": ["clarithromycin", "biaxin"],
+        "severity": "danger",
+        "description": (
+            "Clarithromycin inhibits P-glycoprotein and"
+            " eliminates gut bacteria that metabolize digoxin,"
+            " increasing digoxin levels and toxicity risk."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Simvastatin + Cyclosporine
+    {
+        "drug_a": ["simvastatin", "zocor", "lovastatin", "mevacor"],
+        "drug_b": ["cyclosporine", "sandimmune", "neoral"],
+        "severity": "danger",
+        "description": (
+            "Cyclosporine inhibits CYP3A4 and OATP1B1,"
+            " massively increasing statin exposure."
+            " Risk of rhabdomyolysis. Contraindicated with"
+            " simvastatin and lovastatin."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Phenytoin + Isoniazid
+    {
+        "drug_a": ["phenytoin", "dilantin"],
+        "drug_b": ["isoniazid", "inh"],
+        "severity": "warning",
+        "description": (
+            "Isoniazid inhibits CYP2C19, increasing phenytoin"
+            " levels. Risk of phenytoin toxicity with ataxia,"
+            " nystagmus, and mental status changes."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Warfarin + Miconazole (topical)
+    {
+        "drug_a": ["warfarin", "coumadin"],
+        "drug_b": [
+            "miconazole", "monistat",
+            "miconazole oral gel",
+        ],
+        "severity": "warning",
+        "description": (
+            "Even topical/oral miconazole can inhibit CYP2C9,"
+            " increasing warfarin levels and bleeding risk."
+            " Monitor INR closely."
+        ),
+        "source": "FDA Drug Label / Clinical Literature",
+    },
+    # Verapamil + Simvastatin
+    {
+        "drug_a": ["verapamil", "calan", "verelan"],
+        "drug_b": ["simvastatin", "zocor"],
+        "severity": "warning",
+        "description": (
+            "Verapamil inhibits CYP3A4, increasing simvastatin"
+            " levels. Simvastatin dose should not exceed 10mg"
+            " with concurrent verapamil. Risk of rhabdomyolysis."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Diltiazem + Simvastatin
+    {
+        "drug_a": ["diltiazem", "cardizem", "tiazac"],
+        "drug_b": ["simvastatin", "zocor"],
+        "severity": "warning",
+        "description": (
+            "Diltiazem inhibits CYP3A4, increasing simvastatin"
+            " levels. Simvastatin dose should not exceed 10mg"
+            " with concurrent diltiazem."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Amiodarone + Digoxin + Verapamil (triple threat)
+    # Already have pairs; adding Digoxin + Dronedarone
+    {
+        "drug_a": ["digoxin", "lanoxin"],
+        "drug_b": ["dronedarone", "multaq"],
+        "severity": "danger",
+        "description": (
+            "Dronedarone increases digoxin levels by 2.5-fold"
+            " via P-glycoprotein inhibition. Risk of fatal"
+            " digoxin toxicity. Contraindicated or reduce"
+            " digoxin dose by 50%."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Spironolactone + NSAIDs
+    {
+        "drug_a": ["spironolactone", "aldactone", "eplerenone", "inspra"],
+        "drug_b": [
+            "ibuprofen", "naproxen", "advil",
+            "motrin", "aleve", "nsaid",
+        ],
+        "severity": "warning",
+        "description": (
+            "NSAIDs reduce spironolactone's diuretic efficacy"
+            " and increase risk of hyperkalemia and acute"
+            " kidney injury."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Duloxetine + Ciprofloxacin
+    {
+        "drug_a": ["duloxetine", "cymbalta"],
+        "drug_b": ["ciprofloxacin", "cipro"],
+        "severity": "warning",
+        "description": (
+            "Ciprofloxacin inhibits CYP1A2, increasing"
+            " duloxetine exposure by up to 6-fold."
+            " Risk of serotonergic adverse effects."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Azithromycin + QT-prolonging drugs
+    {
+        "drug_a": ["azithromycin", "zithromax", "z-pack"],
+        "drug_b": [
+            "amiodarone", "sotalol", "dronedarone",
+            "haloperidol", "methadone",
+        ],
+        "severity": "danger",
+        "description": (
+            "Azithromycin prolongs QT interval. Combined with"
+            " other QT-prolonging drugs, risk of fatal Torsades"
+            " de Pointes increases significantly."
+        ),
+        "source": "FDA Drug Safety Communication",
+    },
+    # Finasteride/Dutasteride + Pregnant women (teratogen)
+    {
+        "drug_a": [
+            "finasteride", "proscar", "propecia",
+            "dutasteride", "avodart",
+        ],
+        "drug_b": ["pregnancy", "pregnant"],
+        "severity": "danger",
+        "description": (
+            "5-alpha reductase inhibitors are teratogenic."
+            " Can cause severe birth defects in male fetuses."
+            " Women who are or may become pregnant must not"
+            " handle crushed/broken tablets."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Nifedipine + Grapefruit
+    {
+        "drug_a": ["nifedipine", "procardia", "adalat"],
+        "drug_b": ["grapefruit", "grapefruit juice"],
+        "severity": "warning",
+        "description": (
+            "Grapefruit inhibits CYP3A4, increasing nifedipine"
+            " levels. Risk of severe hypotension, flushing,"
+            " and peripheral edema."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Buspirone + Grapefruit
+    {
+        "drug_a": ["buspirone", "buspar"],
+        "drug_b": ["grapefruit", "grapefruit juice"],
+        "severity": "warning",
+        "description": (
+            "Grapefruit inhibits CYP3A4, markedly increasing"
+            " buspirone levels and risk of excessive sedation"
+            " and dizziness."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Lithium + SSRIs
+    {
+        "drug_a": ["lithium", "lithobid", "eskalith"],
+        "drug_b": [
+            "fluoxetine", "sertraline", "paroxetine",
+            "citalopram", "escitalopram", "ssri",
+        ],
+        "severity": "warning",
+        "description": (
+            "Combined serotonergic activity increases risk of"
+            " serotonin syndrome and lithium toxicity."
+            " Monitor for tremor, agitation, and confusion."
+        ),
+        "source": "FDA Drug Label / Clinical Literature",
+    },
+    # Pimozide + Macrolides
+    {
+        "drug_a": ["pimozide", "orap"],
+        "drug_b": [
+            "clarithromycin", "biaxin",
+            "erythromycin", "azithromycin",
+        ],
+        "severity": "danger",
+        "description": (
+            "Macrolides inhibit CYP3A4, increasing pimozide"
+            " levels. Risk of fatal QT prolongation and"
+            " Torsades de Pointes. Contraindicated."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Ergotamine + Macrolides
+    {
+        "drug_a": ["ergotamine", "dihydroergotamine", "cafergot"],
+        "drug_b": [
+            "erythromycin", "clarithromycin", "biaxin",
+        ],
+        "severity": "danger",
+        "description": (
+            "CYP3A4 inhibition increases ergotamine levels,"
+            " causing acute ergotism with severe peripheral"
+            " vasospasm and gangrene. Contraindicated."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Colchicine + P-gp inhibitors (cyclosporine)
+    {
+        "drug_a": ["colchicine", "colcrys"],
+        "drug_b": ["cyclosporine", "sandimmune", "neoral"],
+        "severity": "danger",
+        "description": (
+            "Cyclosporine inhibits P-glycoprotein, increasing"
+            " colchicine levels. Risk of fatal colchicine"
+            " toxicity with multi-organ failure."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Tacrolimus + NSAIDs
+    {
+        "drug_a": ["tacrolimus", "prograf"],
+        "drug_b": [
+            "ibuprofen", "naproxen", "diclofenac",
+            "nsaid", "indomethacin",
+        ],
+        "severity": "warning",
+        "description": (
+            "NSAIDs increase tacrolimus nephrotoxicity"
+            " and may raise tacrolimus levels. Monitor"
+            " renal function and tacrolimus levels closely."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Dapagliflozin/Empagliflozin + Loop diuretics
+    {
+        "drug_a": [
+            "dapagliflozin", "farxiga",
+            "empagliflozin", "jardiance",
+            "canagliflozin", "invokana", "sglt2 inhibitor",
+        ],
+        "drug_b": [
+            "furosemide", "lasix", "bumetanide",
+            "bumex", "torsemide", "loop diuretic",
+        ],
+        "severity": "warning",
+        "description": (
+            "Additive diuretic effect increases risk of"
+            " dehydration, hypotension, and acute kidney"
+            " injury. Monitor volume status."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Clozapine + Ciprofloxacin
+    {
+        "drug_a": ["clozapine", "clozaril"],
+        "drug_b": ["ciprofloxacin", "cipro"],
+        "severity": "danger",
+        "description": (
+            "Ciprofloxacin inhibits CYP1A2, increasing"
+            " clozapine levels. Risk of seizures, sedation,"
+            " and fatal agranulocytosis."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Fluvoxamine + Theophylline
+    # (already present at line 1627, adding Fluvoxamine + Clozapine)
+    {
+        "drug_a": ["fluvoxamine", "luvox"],
+        "drug_b": ["clozapine", "clozaril"],
+        "severity": "danger",
+        "description": (
+            "Fluvoxamine is a potent CYP1A2 inhibitor,"
+            " increasing clozapine levels 5-10 fold."
+            " Risk of seizures and myocarditis."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Dextromethorphan + MAOIs
+    {
+        "drug_a": [
+            "dextromethorphan", "dxm", "robitussin",
+            "delsym", "mucinex dm",
+        ],
+        "drug_b": [
+            "phenelzine", "nardil", "tranylcypromine",
+            "parnate", "isocarboxazid", "maoi",
+            "selegiline", "rasagiline",
+        ],
+        "severity": "danger",
+        "description": (
+            "Serotonin syndrome risk from combined serotonergic"
+            " activity. Can be fatal. Contraindicated."
+            " Wait at least 14 days after MAOI discontinuation."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Amiodarone + Simvastatin (high dose)
+    # (existing covers this pair, adding Amiodarone + Flecainide)
+    {
+        "drug_a": ["amiodarone", "cordarone", "pacerone"],
+        "drug_b": ["flecainide", "tambocor"],
+        "severity": "danger",
+        "description": (
+            "Amiodarone inhibits CYP2D6, doubling flecainide"
+            " levels. Risk of proarrhythmia and cardiac arrest."
+            " Reduce flecainide dose by 50%."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Sildenafil + Ritonavir
+    {
+        "drug_a": [
+            "sildenafil", "viagra", "revatio",
+            "tadalafil", "cialis",
+        ],
+        "drug_b": ["ritonavir", "norvir", "lopinavir"],
+        "severity": "danger",
+        "description": (
+            "Ritonavir is a potent CYP3A4 inhibitor,"
+            " increasing sildenafil AUC by 11-fold."
+            " Risk of severe hypotension, priapism,"
+            " and visual disturbances."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Ticagrelor + Strong CYP3A4 inhibitors
+    {
+        "drug_a": ["ticagrelor", "brilinta"],
+        "drug_b": [
+            "ketoconazole", "itraconazole",
+            "ritonavir", "clarithromycin",
+        ],
+        "severity": "danger",
+        "description": (
+            "Strong CYP3A4 inhibitors increase ticagrelor"
+            " exposure, raising bleeding risk."
+            " Avoid concurrent use."
+        ),
+        "source": "FDA Drug Label",
+    },
+    # Ticagrelor + Simvastatin
+    {
+        "drug_a": ["ticagrelor", "brilinta"],
+        "drug_b": ["simvastatin", "zocor", "lovastatin"],
+        "severity": "warning",
+        "description": (
+            "Ticagrelor inhibits CYP3A4, increasing simvastatin"
+            " levels. Simvastatin dose should not exceed 40mg."
+        ),
+        "source": "FDA Drug Label",
+    },
 ]
 
 

@@ -1,0 +1,6 @@
+- id: llm-medical-guard
+  name: llm-medical-guard
+  entry: llm-medical-guard check
+  language: python
+  types: [text]
+  pass_filenames: true

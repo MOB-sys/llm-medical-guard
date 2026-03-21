@@ -224,6 +224,81 @@ dosage:
       max_daily: 5
       unit: "mg"
       warning_threshold: 20
+    vitamin_e:
+      names: ["vitamin e", "alpha-tocopherol", "tocopherol"]
+      max_daily: 1000
+      unit: "mg"
+      warning_threshold: 1500
+    vitamin_b12:
+      names: ["vitamin b12", "cobalamin", "cyanocobalamin", "methylcobalamin"]
+      max_daily: 2000
+      unit: "mcg"
+      warning_threshold: 5000
+    folic_acid:
+      names: ["folic acid", "folate", "vitamin b9"]
+      max_daily: 1000
+      unit: "mcg"
+      warning_threshold: 2000
+    vitamin_k:
+      names: ["vitamin k", "vitamin k1", "vitamin k2", "phylloquinone", "menaquinone"]
+      max_daily: 120
+      unit: "mcg"
+      warning_threshold: 500
+    selenium:
+      names: ["selenium", "selenomethionine"]
+      max_daily: 400
+      unit: "mcg"
+      warning_threshold: 800
+    chromium:
+      names: ["chromium", "chromium picolinate"]
+      max_daily: 200
+      unit: "mcg"
+      warning_threshold: 1000
+    manganese:
+      names: ["manganese"]
+      max_daily: 11
+      unit: "mg"
+      warning_threshold: 20
+    copper:
+      names: ["copper", "copper gluconate", "copper sulfate"]
+      max_daily: 10
+      unit: "mg"
+      warning_threshold: 20
+    biotin:
+      names: ["biotin", "vitamin b7"]
+      max_daily: 2500
+      unit: "mcg"
+      warning_threshold: 10000
+    potassium:
+      names: ["potassium", "potassium chloride", "potassium citrate"]
+      max_daily: 3400
+      unit: "mg"
+      warning_threshold: 5000
+    phosphorus:
+      names: ["phosphorus", "phosphate"]
+      max_daily: 4000
+      unit: "mg"
+      warning_threshold: 6000
+    niacin:
+      names: ["niacin", "vitamin b3", "nicotinic acid", "nicotinamide"]
+      max_daily: 35
+      unit: "mg"
+      warning_threshold: 100
+    coq10:
+      names: ["coq10", "coenzyme q10", "ubiquinone", "ubiquinol"]
+      max_daily: 300
+      unit: "mg"
+      warning_threshold: 600
+    turmeric:
+      names: ["turmeric", "curcumin"]
+      max_daily: 1500
+      unit: "mg"
+      warning_threshold: 3000
+    iodine:
+      names: ["iodine", "potassium iodide"]
+      max_daily: 1100
+      unit: "mcg"
+      warning_threshold: 2000
 
 messages:
   banned_found: "Prohibited expression detected"

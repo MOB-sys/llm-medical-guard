@@ -228,6 +228,27 @@ def test_korean_content(medical_guard):
 pytest --medical-guard --medical-guard-locale=en --medical-guard-strict
 ```
 
+## Pre-commit Hook
+
+Add `llm-medical-guard` as a [pre-commit](https://pre-commit.com/) hook to automatically check staged files for unsafe medical content:
+
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/MOB-sys/llm-medical-guard
+    rev: v0.2.0
+    hooks:
+      - id: llm-medical-guard
+```
+
+Then run:
+
+```bash
+pre-commit install
+```
+
+The hook will run `llm-medical-guard check` on all staged text files before each commit.
+
 ## Verification Badge
 
 Generate an SVG badge for your docs/website:
